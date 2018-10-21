@@ -8,7 +8,8 @@
                     <div class="card-header">
                         <div class="level">
                             <div class="flex">
-                                <a href="{{ route('profile', $thread->creator) }}">{{ $thread->creator->name }}</a> posted:
+                                <a href="{{ route('profile', $thread->creator) }}">{{ $thread->creator->name }}</a>
+                                posted:
                                 {{ $thread->title }}
                             </div>
                             @can('update', $thread)
