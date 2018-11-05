@@ -39,9 +39,9 @@
     export default {
         props: ['data'],
 
-        components: { Favorite },
+        components: {Favorite},
 
-        data () {
+        data() {
             return {
                 editing: false,
                 id: this.data.id,
@@ -54,28 +54,32 @@
                 return moment(this.data.created_at).fromNow() + '....';
             },
 
-            signedIn () {
+            signedIn() {
                 return window.App.signedIn;
             },
 
-            canUpdate () {
+            canUpdate() {
                 return this.authorize(user => this.data.user_id == user.id);
                 // return this.data.user_id == window.App.user.id;
             }
         },
 
         methods: {
-            update () {
-                axios.patch('/replies/' + this.data.id, {
-                    body: this.body
-                });
+            update() {
+                axios.patch(
+                    '/replies/' + this.data.id, {
+                        body: this.body
+                    })
+                    .catch(error => {
+                        flash(error.response.data, 'danger');
+                    });
 
                 this.editing = false;
 
                 flash('Updated!');
             },
 
-            destroy () {
+            destroy() {
                 axios.delete('/replies/' + this.data.id);
 
                 this.$emit('deleted', this.data.id);
