@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 
 class ThreadController extends Controller
 {
+    /**
+     * Create a ThreadController instance.
+     */
     public function __construct()
     {
         $this->middleware('auth')->except(['index', 'show']);
@@ -48,11 +51,10 @@ class ThreadController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'title' => ['required', new SpamFree],
             'body' => ['required', new SpamFree],
             'channel_id' => 'required|exists:channels,id'
