@@ -12,6 +12,8 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="level">
+                                <img src="{{ $thread->creator->avatar() }}" alt="{{ $thread->creator->name }}"
+                                     width="25" height="25" class="mr-2">
                                 <div class="flex">
                                     <a href="{{ route('profile', $thread->creator) }}">{{ $thread->creator->name }}</a>
                                     posted:
@@ -42,10 +44,13 @@
                         <div class="card-body">
                             <p>This thread was published {{ $thread->created_at->diffForHumans() }} by
                                 <a href="#">{{ $thread->creator->name }}</a>, and currently
-                                has <span v-text="repliesCount"></span> {{ str_plural('comment', $thread->replies_count) }}.
+                                has <span
+                                        v-text="repliesCount"></span> {{ str_plural('comment', $thread->replies_count) }}
+                                .
                             </p>
                             <p>
-                                <subscribe-button :active="{{ json_encode($thread->isSubscribedTo) }}"></subscribe-button>
+                                <subscribe-button
+                                        :active="{{ json_encode($thread->isSubscribedTo) }}"></subscribe-button>
                             </p>
                         </div>
                     </div>
