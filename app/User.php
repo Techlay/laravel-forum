@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -49,12 +50,12 @@ class User extends Authenticatable
 
     public function read($thread)
     {
-        cache()->forever($this->visitedThreadCacheKey($thread), \Carbon\Carbon::now());
+        cache()->forever($this->visitedThreadCacheKey($thread), Carbon::now());
     }
 
-    public function avatar()
+    public function getAvatarPathAttribute($avatar)
     {
-        return asset($this->avatar_path ?: 'avatars/default.jpg');
+        return asset($avatar ?: 'images/avatars/default.png');
     }
 
     public function visitedThreadCacheKey($thread)
