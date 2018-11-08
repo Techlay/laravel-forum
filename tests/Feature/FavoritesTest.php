@@ -14,7 +14,7 @@ class FavoritesTest extends TestCase
     public function guests_can_not_favorite_anything()
     {
         $this->post('replies/1/favorites')
-            ->assertRedirect('/login');
+            ->assertRedirect(route('login'));
     }
 
     /** @test */

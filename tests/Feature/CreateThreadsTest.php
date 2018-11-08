@@ -14,10 +14,10 @@ class CreateThreadsTest extends TestCase
     public function guests_may_not_create_threads()
     {
         $this->get('/threads/create')
-            ->assertRedirect('/login');
+            ->assertRedirect(route('login'));
 
         $this->post('/threads')
-            ->assertRedirect('/login');
+            ->assertRedirect(route('login'));
     }
 
     /** @test */
@@ -67,7 +67,7 @@ class CreateThreadsTest extends TestCase
     {
         $thread = create('App\Thread');
 
-        $this->delete($thread->path())->assertRedirect('/login');
+        $this->delete($thread->path())->assertRedirect(route('login'));
 
         $this->signIn();
         $this->delete($thread->path())->assertStatus(403);
