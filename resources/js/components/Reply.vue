@@ -1,5 +1,5 @@
 <template>
-    <div :id="'reply-'+id" class="card">
+    <div :id="'reply-'+id" :class="isBest ? 'card border-success' : 'card'">
         <div class="card-header">
             <div class="level">
                 <div class="flex">
@@ -27,9 +27,13 @@
             <div v-else v-html="body"></div>
         </div>
 
-        <div class="card-footer level" v-if="canUpdate">
-            <button class="btn btn-sm mr-2" @click="editing = true">Edit</button>
-            <button class="btn btn-sm mr-2 btn-danger" @click="destroy">Delete</button>
+        <div class="card-footer level">
+            <div v-if="canUpdate">
+                <button class="btn btn-sm mr-2" @click="editing = true">Edit</button>
+                <button class="btn btn-sm mr-2 btn-danger" @click="destroy">Delete</button>
+            </div>
+
+            <button class="btn btn-sm btn-outline-secondary ml-auto" @click="markBestReply" v-show="! isBest">Best Reply</button>
         </div>
     </div>
 </template>
@@ -41,33 +45,34 @@
     export default {
         props: ['data'],
 
-        components: {Favorite},
+        components: { Favorite },
 
-        data() {
+        data () {
             return {
                 editing: false,
                 id: this.data.id,
-                body: this.data.body
+                body: this.data.body,
+                isBest: false
             }
         },
 
         computed: {
-            ago() {
+            ago () {
                 return moment(this.data.created_at).fromNow() + '....';
             },
 
-            signedIn() {
+            signedIn () {
                 return window.App.signedIn;
             },
 
-            canUpdate() {
+            canUpdate () {
                 return this.authorize(user => this.data.user_id == user.id);
                 // return this.data.user_id == window.App.user.id;
             }
         },
 
         methods: {
-            update() {
+            update () {
                 axios.patch(
                     '/replies/' + this.data.id, {
                         body: this.body
@@ -81,10 +86,14 @@
                 flash('Updated!');
             },
 
-            destroy() {
+            destroy () {
                 axios.delete('/replies/' + this.data.id);
 
                 this.$emit('deleted', this.data.id);
+            },
+
+            markBestReply () {
+                this.isBest = true;
             }
         }
     }
