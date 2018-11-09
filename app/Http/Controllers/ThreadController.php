@@ -65,8 +65,11 @@ class ThreadController extends Controller
             'channel_id' => request('channel_id'),
             'title' => request('title'),
             'body' => request('body'),
-            'slug' => str_slug(request('title'))
         ]);
+
+        if (request()->wantsJson()) {
+            return response($thread, 201);
+        }
 
         return redirect($thread->path())
             ->with('flash', 'Your thread has been published');
@@ -86,7 +89,7 @@ class ThreadController extends Controller
 
         $thread->increment('visits');
 
-        return view('threads.show',compact('thread'));
+        return view('threads.show', compact('thread'));
     }
 
     /**

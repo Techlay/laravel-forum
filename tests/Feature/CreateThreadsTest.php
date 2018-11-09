@@ -66,21 +66,27 @@ class CreateThreadsTest extends TestCase
     /** @test */
     public function a_thread_require_a_unique_slug()
     {
-        $this->withoutExceptionHandling();
-
         $this->signIn();
 
-        $thread = create('App\Thread', ['title' => 'Foo Title', 'slug' => 'foo-title']);
+        $thread = create('App\Thread', ['title' => 'Foo Title']);
 
         $this->assertEquals($thread->fresh()->slug, 'foo-title');
 
-        $this->post(route('threads'), $thread->toArray());
+        $thread = $this->postJson(route('threads'), $thread->toArray())->json();
 
-        $this->assertTrue(Thread::whereSlug('foo-title-2')->exists());
+        $this->assertEquals("foo-title-{$thread['id']}", $thread['slug']);
+    }
 
-        $this->post(route('threads'), $thread->toArray());
+    /** @test */
+    public function a_thread_with_a_title_that_ends_in_a_number_should_generate_the_proper_slug()
+    {
+        $this->signIn();
 
-        $this->assertTrue(Thread::whereSlug('foo-title-3')->exists());
+        $thread = create('App\Thread', ['title' => 'Some Title 24']);
+
+        $thread = $this->postJson(route('threads'), $thread->toArray())->json();
+
+        $this->assertEquals("some-title-24-{$thread['id']}", $thread['slug']);
     }
 
     /** @test */
@@ -91,6 +97,7 @@ class CreateThreadsTest extends TestCase
         $this->delete($thread->path())->assertRedirect(route('login'));
 
         $this->signIn();
+
         $this->delete($thread->path())->assertStatus(403);
     }
 
