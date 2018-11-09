@@ -60,4 +60,8 @@ class Reply extends Model
         $this->attributes['body'] = preg_replace('/@([\w\-]+)/', '<a href="/profiles/$1">$0</a>', $body);
     }
 
+    public function isBest()
+    {
+        return $this->thread->best_reply_id == $this->id;
+    }
 }
