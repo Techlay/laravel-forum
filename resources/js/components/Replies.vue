@@ -17,24 +17,24 @@
     import collection from '../mixins/collection';
 
     export default {
-        components: {Reply, NewReply},
+        components: { Reply, NewReply },
 
         mixins: [collection],
 
-        data() {
-            return {dataSet: false}
+        data () {
+            return { dataSet: false }
         },
 
-        created() {
+        created () {
             this.fetch();
         },
 
         methods: {
-            fetch(page) {
+            fetch (page) {
                 axios.get(this.url(page)).then(this.refresh);
             },
 
-            url(page) {
+            url (page) {
                 if (!page) {
                     let query = location.search.match(/page=(\d+)/);
 
@@ -43,7 +43,7 @@
                 return `${location.pathname}/replies?page=${page}`;
             },
 
-            refresh({data}) {
+            refresh ({ data }) {
                 this.dataSet = data;
                 this.items = data.data;
 
