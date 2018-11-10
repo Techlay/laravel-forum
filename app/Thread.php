@@ -60,6 +60,11 @@ class Thread extends Model
         return $reply;
     }
 
+    public function lock()
+    {
+        $this->update(['locked' => true]);
+    }
+
     public function scopeFilter($query, $filters)
     {
         return $filters->apply($query);
@@ -68,7 +73,7 @@ class Thread extends Model
     public function subscribe($userId = null)
     {
         $this->subscriptions()->create([
-            'user_id' => $userId ? : auth()->id()
+            'user_id' => $userId ?: auth()->id()
         ]);
 
         return $this;
@@ -77,7 +82,7 @@ class Thread extends Model
     public function unsubscribe($userId = null)
     {
         $this->subscriptions()
-            ->where('user_id', $userId ? : auth()->id())
+            ->where('user_id', $userId ?: auth()->id())
             ->delete();
     }
 
