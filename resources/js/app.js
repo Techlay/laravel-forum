@@ -21,6 +21,9 @@ Vue.prototype.signedIn = window.App.signedIn;
 
 require('./bootstrap');
 
+import InstantSearch from 'vue-instantsearch';
+
+Vue.use(InstantSearch);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
