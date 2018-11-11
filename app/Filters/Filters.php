@@ -1,13 +1,13 @@
 <?php
 
-
 namespace App\Filters;
 
 use Illuminate\Http\Request;
 
 abstract class Filters
 {
-    protected $request, $builder;
+    protected $request;
+    protected $builder;
 
     protected $filters = [];
 
@@ -37,7 +37,6 @@ abstract class Filters
 
     public function getFilters()
     {
-        return $this->request->only($this->filters);
+        return array_filter($this->request->only($this->filters));
     }
 }
-

@@ -2,9 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Thread;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateThreadsTest extends TestCase
