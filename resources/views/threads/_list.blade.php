@@ -1,5 +1,5 @@
 @forelse ($threads as $thread)
-    <div class="col-md-8">
+
         <div class="card">
             <div class="card-header">
                 <div class="level">
@@ -28,7 +28,7 @@
             </div>
 
             <div class="card-body">
-                <div class="body">{{ $thread->body }}</div>
+                <div class="body">{!! $thread->body !!}</div>
             </div>
 
             <div class="card-footer">
@@ -36,7 +36,6 @@
             </div>
         </div>
         <br>
-    </div>
 @empty
     <p>There are no relevant results at this time.</p>
 @endforelse

@@ -21,6 +21,11 @@ Vue.prototype.signedIn = window.App.signedIn;
 
 require('./bootstrap');
 
+import InstantSearch from 'vue-instantsearch';
+
+Vue.use(InstantSearch);
+
+Vue.config.ignoredElements = ['trix-editor'];
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -33,6 +38,7 @@ Vue.component('paginator', require('./components/Paginator.vue'));
 Vue.component('user-notifications', require('./components/UserNotifications.vue'));
 Vue.component('avatar-form', require('./components/AvatarForm.vue'));
 Vue.component('thread-view', require('./pages/Thread.vue'));
+Vue.component('wysiwyg', require('./components/Wysiwyg.vue'));
 
 const app = new Vue({
     el: '#app'
