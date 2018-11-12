@@ -2,7 +2,6 @@
 
 namespace App;
 
-//use App\Events\ThreadHasNewReply;
 use App\Events\ThreadReceivedNewReply;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
@@ -31,6 +30,8 @@ class Thread extends Model
 
         static::created(function ($thread) {
             $thread->update(['slug' => $thread->title]);
+
+            $thread->creator->increment('reputation', 10);
         });
     }
 
@@ -124,6 +125,8 @@ class Thread extends Model
     public function markBestReply(Reply $reply)
     {
         $this->update(['best_reply_id' => $reply->id]);
+
+        $reply->owner->increment('reputation', 50);
     }
 
     public function toSearchableArray()
