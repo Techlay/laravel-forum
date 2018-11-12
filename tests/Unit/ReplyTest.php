@@ -4,7 +4,6 @@ namespace Tests\Unit;
 
 use Carbon\Carbon;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ReplyTest extends TestCase
@@ -61,5 +60,13 @@ class ReplyTest extends TestCase
         $reply->thread->update(['best_reply_id' => $reply->id]);
 
         $this->assertTrue($reply->fresh()->isBest());
+    }
+
+    /** @test */
+    public function a_reply_body_is_sanitized_automatically()
+    {
+        $reply = make('App\Reply', ['body' => '<script>alert("bad")</script><p>This is okay.</p>']);
+
+        $this->assertEquals('<p>This is okay.</p>', $reply->body);
     }
 }
