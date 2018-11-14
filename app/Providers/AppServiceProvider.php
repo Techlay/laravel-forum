@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Channel;
+// use App\Channel;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use View;
@@ -16,14 +16,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('*', function ($view) {
-            $channels = \Cache::rememberForever('channels', function () {
-                return Channel::all();
-            });
-            $view->with('channels', $channels);
-        });
-
         Schema::defaultStringLength(191);
+
+        // View::composer('*', function ($view) {
+        //     $channels = \Cache::rememberForever('channels', function () {
+        //         return Channel::all();
+        //     });
+        //     $view->with('channels', $channels);
+        // });
     }
 
     /**
