@@ -18,7 +18,7 @@
 <script>
     import Reply from './Reply';
     import NewReply from './NewReply';
-    import collection from '../mixins/collection';
+    import collection from '../mixins/Collection';
 
     export default {
         components: { Reply, NewReply },
