@@ -12,8 +12,6 @@ class SearchController extends Controller
             return Thread::search(request('q'))->paginate(25);
         }
 
-        return view('threads.search', [
-            'threads' => $threads
-        ]);
+        return view('threads.search');
     }
 }
