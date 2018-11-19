@@ -43,7 +43,7 @@
 
         computed: {
             shouldPaginate() {
-                return !! this.prevUrl || !! this.nextUrl;
+                return !!this.prevUrl || !!this.nextUrl;
             }
         },
 

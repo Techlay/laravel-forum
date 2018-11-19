@@ -33,7 +33,8 @@
                 <button class="btn btn-sm mr-2 btn-danger" @click="destroy">Delete</button>
             </div>
 
-            <button class="btn btn-sm btn-outline-secondary ml-auto" @click="markBestReply" v-if="authorize('owns', reply.thread)">
+            <button class="btn btn-sm btn-outline-secondary ml-auto" @click="markBestReply"
+                    v-if="authorize('owns', reply.thread)">
                 Best Reply
             </button>
         </div>
@@ -47,9 +48,9 @@
     export default {
         props: ['reply'],
 
-        components: { Favorite },
+        components: {Favorite},
 
-        data () {
+        data() {
             return {
                 editing: false,
                 id: this.reply.id,
@@ -59,19 +60,19 @@
         },
 
         computed: {
-            ago () {
+            ago() {
                 return moment(this.reply.created_at).fromNow() + '....';
             }
         },
 
-        created () {
+        created() {
             window.events.$on('best-reply-selected', id => {
                 this.isBest = (id === this.id);
             })
         },
 
         methods: {
-            update () {
+            update() {
                 axios.patch(
                     '/replies/' + this.id, {
                         body: this.body
@@ -85,13 +86,13 @@
                 flash('Updated!');
             },
 
-            destroy () {
+            destroy() {
                 axios.delete('/replies/' + this.id);
 
                 this.$emit('deleted', this.id);
             },
 
-            markBestReply () {
+            markBestReply() {
                 axios.post('/replies/' + this.id + '/best');
 
                 window.events.$emit('best-reply-selected', this.id);

@@ -2,7 +2,8 @@
     <div>
         <div v-if="signedIn">
             <div class="form-group">
-                <wysiwyg name="body" v-model="body" placeholder="Have something to say" :shouldClear="completed"></wysiwyg>
+                <wysiwyg name="body" v-model="body" placeholder="Have something to say"
+                         :shouldClear="completed"></wysiwyg>
             </div>
 
             <button type="submit" class="btn btn-primary" @click="addReply">Post</button>
@@ -18,20 +19,20 @@
     import 'at.js';
 
     export default {
-        data () {
+        data() {
             return {
                 body: '',
                 completed: false
             }
         },
 
-        mounted () {
+        mounted() {
             $('#body').atwho({
                 at: "@",
                 delay: 750,
                 callbacks: {
                     remoteFilter: function (query, callback) {
-                        $.getJSON("/api/users", { name: query }, function (username) {
+                        $.getJSON("/api/users", {name: query}, function (username) {
                             callback(username);
                         })
                     }
@@ -40,12 +41,12 @@
         },
 
         methods: {
-            addReply () {
-                axios.post(location.pathname + '/replies', { body: this.body })
+            addReply() {
+                axios.post(location.pathname + '/replies', {body: this.body})
                     .catch(error => {
                         flash(error.response.data, 'danger');
                     })
-                    .then(({ data }) => {
+                    .then(({data}) => {
                         this.body = '';
                         this.completed = true;
 

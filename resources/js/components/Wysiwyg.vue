@@ -11,7 +11,7 @@
     export default {
         props: ['name', 'value', 'placeholder', 'shouldClear'],
 
-        mounted () {
+        mounted() {
             this.$refs.trix.addEventListener('trix-change', e => {
                 this.$emit('input', e.target.innerHTML);
             });

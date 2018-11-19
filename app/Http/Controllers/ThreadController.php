@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Channel;
-use App\Trending;
 use App\Filters\ThreadFilters;
 use App\Rules\SpamFree;
 use App\Thread;
-use Illuminate\Http\Request;
+use App\Trending;
 
 class ThreadController extends Controller
 {
@@ -22,8 +21,9 @@ class ThreadController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Channel $channel
-     * @param ThreadFilters $filters
+     * @param \App\Channel $channel
+     * @param \App\Filters\ThreadFilters $filters
+     * @param \App\Trending $trending
      * @return \Illuminate\Http\Response
      */
     public function index(Channel $channel, ThreadFilters $filters, Trending $trending)
@@ -55,7 +55,6 @@ class ThreadController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store()
@@ -84,7 +83,9 @@ class ThreadController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Thread  $thread
+     * @param $channelId
+     * @param \App\Thread $thread
+     * @param \App\Trending $trending
      * @return \Illuminate\Http\Response
      */
     public function show($channelId, Thread $thread, Trending $trending)
@@ -98,17 +99,6 @@ class ThreadController extends Controller
         $thread->increment('visits');
 
         return view('threads.show', compact('thread'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Thread  $thread
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Thread $thread)
-    {
-        //
     }
 
     public function update($channel, Thread $thread)

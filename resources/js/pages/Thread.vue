@@ -5,9 +5,9 @@
     export default {
         props: ['thread'],
 
-        components: { Replies, SubscribeButton },
+        components: {Replies, SubscribeButton},
 
-        data () {
+        data() {
             return {
                 repliesCount: this.thread.replies_count,
                 locked: this.thread.locked,
@@ -18,12 +18,12 @@
             }
         },
 
-        created () {
+        created() {
             this.resetForm();
         },
 
         methods: {
-            toggleLock () {
+            toggleLock() {
                 let uri = `/locked-thread/${this.thread.slug}`;
 
                 axios[this.locked ? 'delete' : 'post'](uri);
@@ -31,7 +31,7 @@
                 this.locked = !this.locked;
             },
 
-            update () {
+            update() {
                 let uri = `/threads/${this.thread.channel.slug}/${this.thread.slug}`;
 
                 axios.patch(uri, this.form).then(() => {
@@ -43,7 +43,7 @@
                 })
             },
 
-            resetForm () {
+            resetForm() {
                 this.form = {
                     title: this.thread.title,
                     body: this.thread.body
