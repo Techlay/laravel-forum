@@ -7,8 +7,7 @@ namespace App\Inspections;
 class Spam
 {
     protected $inspections = [
-        InvalidKeywords::class,
-        KeyHeldDown::class
+        InvalidKeywords::class
     ];
 
     public function detect($body)
