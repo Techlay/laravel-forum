@@ -74,26 +74,24 @@ class ParticipateInForumTest extends TestCase
     {
         $reply = create('App\Reply');
 
-        $this->patch("/replies/{$reply->id}")
+        $this->patch(route('replies.update', $reply->id))
             ->assertRedirect('login');
 
         $this->signIn()
-            ->patch("/replies/{$reply->id}")
+            ->patch(route('replies.update', $reply->id))
             ->assertStatus(403);
     }
 
     /** @test */
     public function authorized_users_can_update_replies()
     {
-        $this->withoutExceptionHandling();
-
         $this->signIn();
 
         $reply = create('App\Reply', ['user_id' => auth()->id()]);
 
         $updateReply = 'You been changed.';
 
-        $this->patch("/replies/{$reply->id}", ['body' => $updateReply]);
+        $this->patch(route('replies.update', $reply->id), ['body' => $updateReply]);
 
         $this->assertDatabaseHas('replies', ['id' => $reply->id, 'body' => $updateReply]);
     }

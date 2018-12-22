@@ -2,9 +2,8 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ProfilesTest extends TestCase
 {
@@ -13,8 +12,6 @@ class ProfilesTest extends TestCase
     /** @test */
     public function a_user_has_a_profile()
     {
-        $this->withoutExceptionHandling();
-
         $user = create('App\User');
 
         $this->get("/profiles/{$user->name}")
@@ -28,7 +25,7 @@ class ProfilesTest extends TestCase
 
         $thread = create('App\Thread', ['user_id' => auth()->id()]);
 
-        $this->get("/profiles/" . auth()->user()->name)
+        $this->get(route('profile', auth()->user()->name))
             ->assertSee($thread->title)
             ->assertSee($thread->body);
     }

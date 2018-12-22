@@ -2,9 +2,8 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Database\Eloquent\Factory;
+use Tests\TestCase;
 
 class ReadThreadsTest extends TestCase
 {
@@ -38,7 +37,7 @@ class ReadThreadsTest extends TestCase
         $threadInChannel = create('App\Thread', ['channel_id' => $channel->id]);
         $threadNotInChannel = create('App\Thread');
 
-        $this->get('/threads/' . $channel->slug)
+        $this->get(route('channels', $channel->slug))
             ->assertSee($threadInChannel->title)
             ->assertDontSee($threadNotInChannel->title);
     }
