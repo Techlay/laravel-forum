@@ -88470,6 +88470,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             flash('Updated!');
         },
+        cancel: function cancel() {
+            this.editing = false;
+
+            this.body = this.reply.body;
+        },
         destroy: function destroy() {
             axios.delete('/replies/' + this.id);
 
@@ -88947,11 +88952,7 @@ var render = function() {
                     {
                       staticClass: "btn btn-sm btn-link",
                       attrs: { type: "button" },
-                      on: {
-                        click: function($event) {
-                          _vm.editing = false
-                        }
-                      }
+                      on: { click: _vm.cancel }
                     },
                     [_vm._v("Cancel")]
                   )
