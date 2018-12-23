@@ -237,7 +237,7 @@ class Thread extends Model
     public function markBestReply(Reply $reply)
     {
         if ($this->hasBestReply()) {
-            Reputation::reduce($this->bestReply->owner, Reputation::BEST_REPLY_AWARED);
+            Reputation::lose($this->bestReply->owner, Reputation::BEST_REPLY_AWARED);
         }
         $this->update(['best_reply_id' => $reply->id]);
 
