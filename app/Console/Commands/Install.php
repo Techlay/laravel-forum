@@ -33,58 +33,88 @@ class Install extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {
-        $this->intro();
+        $this->welcome();
 
-        if (!file_exists('.env')) {
-            exec('mv .env.example .env');
-            $this->line("\r\n.env file successfully created\r\n");
-        }
+        $this->createEnvFile();
 
         if (strlen(config('app.key')) === 0) {
             $this->call('key:generate');
-            $this->line("\r\n ~ Secret key properly generated\r\n");
+
+            $this->line("~ Secret key properly generated.");
         }
 
-        $dbEnv['DB_DATABASE'] = $this->ask('Database name');
-        $dbEnv['DB_USERNAME'] = $this->ask('Database user');
-        $dbEnv['DB_PASSWORD'] = $this->ask('Database password ("null" for no password)');
+        $this->updateEnvironmentFile($this->requestDatabaseCredentials());
 
-        $this->updateEnvironmentFile($dbEnv);
-
-        // Check if the DB connection is actually working or not
-
-        if ($this->confirm('Do you want to automatically setup the database tables?', true)) {
+        if ($this->confirm('Do you want to migrate the database?', false)) {
             exec('migrate');
-            $this->line("\r\n~ Database successfully migrated\r\n");
+
+            $this->line("~ Database successfully migrated");
         }
 
-        // Master user creation (might be useful in case of future ACL implementation)
-
-        $this->outro();
+        $this->goodbye();
     }
 
+    /**
+     * Update the .env file from an array of $key => $value pairs.
+     *
+     * @param array $updatedValues
+     */
     protected function updateEnvironmentFile($updatedValues)
     {
+        $envFile = $this->laravel->environmentFilePath();
+
         foreach ($updatedValues as $key => $value) {
-            file_put_contents($this->laravel->environmentFilePath(), preg_replace(
+            file_put_contents($envFile, preg_replace(
                 "/{$key}={.*}",
-                $key.'='.$value,
-                file_get_contents($this->laravel->environmentFilePath())
+                "{key}={value}",
+                file_get_contents($envFile)
             ));
         }
     }
 
-    protected function intro()
+    /**
+     * Display the welcome message.
+     */
+    protected function welcome()
     {
-        $this->info("\r\n>> Welcome to the Forum installation process >>\r\n");
+        $this->info(">> Welcome to the Forum installation process! <<");
     }
 
-    protected function outro()
+    /**
+     * Display the completion message.
+     */
+    protected function goodbye()
     {
-        $this->info("\r\n>> The installation process is complete. Enjoy your new forum! <<\r\n");
+        $this->info(">> The installation process is complete. Enjoy your new forum! <<");
+    }
+
+    /**
+     * Request the local database details from the user.
+     *
+     * @return array
+     */
+    protected function requestDatabaseCredentials()
+    {
+        return [
+            'DB_DATABASE' => $this->ask('Database name'),
+            'DB_USERNAME' => $this->ask('Database user'),
+            'DB_PASSWORD' => $this->secret('Database password ("null" for no password)'),
+        ];
+    }
+
+    /**
+     * Create the initial .env file.
+     */
+    protected function createEnvFile()
+    {
+        if (!file_exists('.env')) {
+            exec('cp .env.example .env');
+
+            $this->line(".env file successfully created");
+        }
     }
 }
