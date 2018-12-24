@@ -52,6 +52,7 @@ class InstallCommandTest extends Testcase
             $mock->shouldReceive('confirm')->once()->andReturn(true);
             $mock->shouldReceive('call')->with('key:generate');
             $mock->shouldReceive('call')->with('migrate')->once();
+            $mock->shouldReceive('call')->with('cache::clear')->once;
         });
 
         $this->artisan('forum:install', ['--no-interaction' => true]);
