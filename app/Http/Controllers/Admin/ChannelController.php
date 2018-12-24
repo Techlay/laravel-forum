@@ -3,24 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Channel;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Cache;
 
 class ChannelController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Show all channels.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('admin.channels.index')->with('channels', Channel::class('threads')->get());
+        $channels = Channel::with('threads')->get();
+
+        return view('admin.channels.index', compact('channels'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form to create a new channel.
      *
      * @return \Illuminate\Http\Response
      */
@@ -30,21 +30,21 @@ class ChannelController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new channel.
      *
-     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
-    public function store(Request $request)
+    public function store()
     {
-        $data = request()->validate([
-            'name' => 'required|unique:channels',
-            'description' => 'required'
-        ]);
+        $channel = Channel::create(
+            request()->validate([
+                'name' => 'required|unique:channels',
+                'description' => 'required'
+            ])
+        );
 
-        $channel = Channel::create($data, ['slug' => str_slug($data['name'])]);
-
-        Cache::forget('channels');
+        cache()->forget('channels');
 
         if (request()->wantsJson()) {
             return response($channel, 201);
