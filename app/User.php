@@ -20,6 +20,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'name', 'email', 'password', 'avatar_path'
     ];
 
+    protected $appends = [
+        'isAdmin'
+    ];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -51,7 +55,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isAdmin()
     {
-        return in_array($this->name, ['JohnDoe', 'JaneDoe']);
+        return in_array($this->email, config('forum.administrators'));
+    }
+
+    public function getIsAdminAttribute()
+    {
+        return $this->isAdmin();
     }
 
     public function read($thread)
