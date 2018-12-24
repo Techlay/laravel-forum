@@ -67,7 +67,7 @@
                 <user-notifications></user-notifications>
                 
                 @if(Auth::user()->isAdmin())
-                    <li><a href="{{ route('admin.dashboard.index') }}"><i class="fas fa-cog"></i></a></li>
+                    <a class="nav-link" href="{{ route('admin.dashboard.index') }}"><i class="fas fa-cog"></i></a>
                     @endif
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"

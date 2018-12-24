@@ -6,10 +6,10 @@
             <div class="col-md-2">
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
-                        <a href="{{ route('admin.dashboard.index') }}">Dashboard</a>
+                        <a class="nav-link" href="{{ route('admin.dashboard.index') }}">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.channels.index') }}">Channels</a>
+                        <a class="nav-link" href="{{ route('admin.channels.index') }}">Channels</a>
                     </li>
                 </ul>
             </div>
