@@ -47,7 +47,7 @@
 
     </div>
 
-    <div ref="question" class="card-body">
+    <div class="card-body">
         <highlight :content="body"></highlight>
     </div>
 

@@ -24,7 +24,7 @@
                 </form>
             </div>
 
-            <div ref="body" v-else>
+            <div v-else>
                 <highlight :content="body"></highlight>
             </div>
         </div>
