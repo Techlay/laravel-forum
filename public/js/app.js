@@ -112822,7 +112822,15 @@ var render = function() {
           ? _c("div", [
               _c(
                 "form",
-                { attrs: { action: "" }, on: { submit: _vm.update } },
+                {
+                  attrs: { action: "" },
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.update($event)
+                    }
+                  }
+                },
                 [
                   _c(
                     "div",
@@ -112841,9 +112849,14 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c("button", { staticClass: "btn btn-sm btn-primary" }, [
-                    _vm._v("Update")
-                  ]),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-sm btn-primary",
+                      attrs: { type: "submit" }
+                    },
+                    [_vm._v("Update")]
+                  ),
                   _vm._v(" "),
                   _c(
                     "button",

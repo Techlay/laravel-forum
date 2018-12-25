@@ -14,12 +14,12 @@
         </div>
         <div class="card-body">
             <div v-if="editing">
-                <form @submit="update" action="">
+                <form @submit.prevent="update" action="">
                     <div class="form-group">
                         <wysiwyg v-model="body"></wysiwyg>
                     </div>
 
-                    <button class="btn btn-sm btn-primary">Update</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Update</button>
                     <button class="btn btn-sm btn-link" @click="cancel" type="button">Cancel</button>
                 </form>
             </div>
