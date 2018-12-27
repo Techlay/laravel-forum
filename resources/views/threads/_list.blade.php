@@ -6,6 +6,9 @@
                 <div class="flex">
                     <div>
                         <a href="{{ $thread->path() }}">
+                            @if($thread->pinned)
+                                <i class="fas fa-thumbtack"></i>
+                            @endif
                             @if(auth()->check() && $thread->hasUpdatesFor(auth()->user()))
                                 <strong>
                                     {{ $thread->title }}

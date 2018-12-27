@@ -88410,6 +88410,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             repliesCount: this.thread.replies_count,
             locked: this.thread.locked,
+            pinned: this.thread.pinned,
             title: this.thread.title,
             body: this.thread.body,
             form: {},
@@ -88423,11 +88424,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         toggleLock: function toggleLock() {
-            var uri = '/locked-thread/' + this.thread.slug;
+            var uri = '/locked-threads/' + this.thread.slug;
 
             axios[this.locked ? 'delete' : 'post'](uri);
 
             this.locked = !this.locked;
+        },
+        togglePin: function togglePin() {
+            var uri = '/pinned-threads/' + this.thread.slug;
+
+            axios[this.pinned ? 'delete' : 'post'](uri);
+
+            this.pinned = !this.pinned;
         },
         update: function update() {
             var _this = this;
@@ -88449,6 +88457,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             };
 
             this.editing = false;
+        },
+        classes: function classes(target) {
+            return ['btn', target ? 'btn-primary' : 'btn-outline-primary'];
         }
     }
 });
@@ -115337,7 +115348,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     computed: {
-        filteredThreads: function filteredThreads() {
+        filteredChannels: function filteredChannels() {
             var _this = this;
 
             return this.channels.filter(function (channel) {
@@ -115389,7 +115400,7 @@ var render = function() {
         _c(
           "ul",
           { staticClass: "list-group channel-list" },
-          _vm._l(_vm.filteredThreads, function(channel) {
+          _vm._l(_vm.filteredChannels, function(channel) {
             return _c("li", { staticClass: "list-group-item" }, [
               _c("a", {
                 attrs: { href: "/threads/" + channel.slug },

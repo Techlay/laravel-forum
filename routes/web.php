@@ -29,6 +29,9 @@ Route::get('threads/{channel}', 'ThreadController@index')->name('channels');
 Route::post('locked-threads/{thread}', 'LockedThreadController@store')->middleware('admin')->name('locked-threads.store');
 Route::delete('locked-threads/{thread}', 'LockedThreadController@destroy')->middleware('admin')->name('locked-threads.destroy');
 
+Route::post('pinned-threads/{thread}', 'PinnedThreadController@store')->middleware('admin')->name('pinned-threads.store');
+Route::delete('pinned-threads/{thread}', 'PinnedThreadController@destroy')->middleware('admin')->name('pinned-threads.destroy');
+
 Route::get('/threads/{channel}/{thread}/replies', 'ReplyController@index')->name('replies');
 Route::post('/threads/{channel}/{thread}/replies', 'ReplyController@store')->middleware('verified')->name('replies.store');
 Route::patch('/replies/{reply}', 'ReplyController@update')->name('replies.update');
