@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Question\Question;
 
 class Install extends Command
 {
@@ -21,16 +22,6 @@ class Install extends Command
     protected $description = 'Simplify installation process';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return void
@@ -47,10 +38,12 @@ class Install extends Command
             $this->line("~ Secret key properly generated.");
         }
 
+        $credentials = $this->requestDatabaseCredentials();
+
         $this->updateEnvironmentFile($this->requestDatabaseCredentials());
 
         if ($this->confirm('Do you want to migrate the database?', false)) {
-            exec('migrate');
+            $this->migrateDatabaseWithFreshCredentials($credentials);
 
             $this->line("~ Database successfully migrated");
         }
@@ -101,8 +94,9 @@ class Install extends Command
     {
         return [
             'DB_DATABASE' => $this->ask('Database name'),
+            'DB_PORT' => $this->ask('Database port', 3306),
             'DB_USERNAME' => $this->ask('Database user'),
-            'DB_PASSWORD' => $this->secret('Database password ("null" for no password)'),
+            'DB_PASSWORD' => $this->askHiddenWithDefault('Database password (leave blank for  no password)'),
         ];
     }
 
@@ -116,5 +110,42 @@ class Install extends Command
 
             $this->line(".env file successfully created");
         }
+    }
+
+    /**
+     * Migrate the db with the new credentials.
+     *
+     * @param $credentials
+     */
+    protected function migrateDatabaseWithFreshCredentials($credentials)
+    {
+        foreach ($credentials as $key => $value) {
+            $configKey = strtolower(str_replace("DB_", "", $key));
+
+            if ($configKey === 'password' && $value = 'null') {
+                config(["database.connections.mysql.{$configKey}" => '']);
+
+                continue;
+            }
+
+            config(["database.connections.mysql.${configKey}" => $value]);
+        }
+
+        $this->call('migrate');
+    }
+
+    /**
+     * Prompt the user for optional input but hide the answer from the console.
+     *
+     * @param string $question
+     * @param bool $fallback
+     */
+    public function askHiddenWithDefault($question, $fallback = true)
+    {
+        $question = new Question($question, 'NULL');
+
+        $question->setHidden(true)->setHiddenFallback($fallback);
+
+        $password = $this->output->askQuestion($question);
     }
 }

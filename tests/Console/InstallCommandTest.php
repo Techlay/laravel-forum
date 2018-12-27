@@ -58,6 +58,26 @@ class InstallCommandTest extends Testcase
         $this->artisan('forum:install', ['--no-interaction' => true]);
     }
 
+    /** @test */
+    public function it_sets_the_database_env_config()
+    {
+        $this->partialMock(['ask', 'askHiddenWithDefault'], function ($mock) {
+            $mock->shouldReceive('ask')->with('Database name')->andReturn('mydatabase');
+            $mock->shouldReceive('ask')->with('Database port', 3306)->andReturn(3306);
+            $mock->shouldReceive('ask')->with('Database user')->andReturn('johndoe');
+            $mock->shouldReceive('askHiddenWithDefault')
+                ->with('Database password (leave blank for no password)')
+                ->andReturn('password');
+        });
+
+        $this->artisan('forum:install', ['--no-interaction' => true]);
+
+        $this->assertEnvKeyEquals('DB_DATABASE', 'mydatabase');
+        $this->assertEnvKeyEquals('DB_PORT', '3306');
+        $this->assertEnvKeyEquals('DB_USERNAME', 'johndoe');
+        $this->assertEnvKeyEquals('DB_PASSWORD', 'password');
+    }
+
     protected function partialMock($methods, $assertions = null)
     {
         $assertions = $assertions ?? function () {};
