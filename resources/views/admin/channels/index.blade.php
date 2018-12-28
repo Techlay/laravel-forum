@@ -10,21 +10,25 @@
                 <th>Slug</th>
                 <th>Description</th>
                 <th>Threads</th>
+                <th>Actions</th>
             </tr>
         </thread>
         <tbody>
-            @forelse($channels as $channel)
-                <tr>
-                    <td>{{ $channel->name }}</td>
-                    <td>{{ $channel->slug }}</td>
-                    <td>{{ $channel->description }}</td>
-                    <td>{{ $channel->threads()->count() }}</td>
-                </tr>
-            @empty
-                <tr>
-                    <td>Nothing here.</td>
-                </tr>
-            @endforelse
+        @forelse($channels as $channel)
+            <tr>
+                <td>{{ $channel->name }}</td>
+                <td>{{ $channel->slug }}</td>
+                <td>{{ $channel->description }}</td>
+                <td>{{ $channel->threads()->count() }}</td>
+                <td>
+                    <a href="{{ route('admin.channels.edit', ['channel' => $channel->slug]) }}" class="btn btn-sm">Edit</a>
+                </td>
+            </tr>
+        @empty
+            <tr>
+                <td>Nothing here.</td>
+            </tr>
+        @endforelse
         </tbody>
     </table>
 @endsection

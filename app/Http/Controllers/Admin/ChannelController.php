@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Channel;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ChannelController extends Controller
@@ -20,21 +21,45 @@ class ChannelController extends Controller
     }
 
     /**
-     * Show the form to create a new channel.
+     * Show the form to create a new channel
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        return view('admin.channels.create');
+        return view('admin.channels.create', ['channel' => new Channel]);
     }
 
     /**
-     * Store a new channel.
+     * Show the form to edit an existing channel.
      *
+     * @param Channel $channel
      * @return \Illuminate\Http\Response
-     * @throws \Exception
      */
+    public function edit(Channel $channel)
+    {
+        return view('admin.channels.edit', compact('channel'));
+    }
+
+    public function update(Channel $channel)
+    {
+        $channel->update(
+            request()->validate([
+                'name' => 'required|unique:channels',
+                'description' => 'required'
+            ])
+        );
+
+        cache()->forget('channels');
+
+        if (request()->wantsJson()) {
+            return response($channel, 200);
+        }
+
+        return redirect(route('admin.channels.index'))
+            ->with('flash', 'Your channel has been updated!');
+    }
+
     public function store()
     {
         $channel = Channel::create(
