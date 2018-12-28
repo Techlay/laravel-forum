@@ -39906,6 +39906,7 @@ Vue.component('avatar-form', __webpack_require__(510));
 Vue.component('thread-view', __webpack_require__(516));
 Vue.component('wysiwyg', __webpack_require__(732));
 Vue.component('channel-dropdown', __webpack_require__(740));
+Vue.component('logout-button', __webpack_require__(747));
 
 var app = new Vue({
     el: '#app'
@@ -115449,6 +115450,118 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 746 */,
+/* 747 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(748)
+/* template */
+var __vue_template__ = __webpack_require__(749)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/LogoutButton.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5d86bf47", Component.options)
+  } else {
+    hotAPI.reload("data-v-5d86bf47", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 748 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        route: {
+            type: String,
+            default: "/logout"
+        }
+    },
+
+    methods: {
+        onClick: function onClick() {
+            axios.post(this.route).then(function (response) {
+                window.location.href = response.request.responseURL;
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 749 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "a",
+    {
+      staticClass: "dropdown-item",
+      attrs: { href: _vm.route },
+      on: {
+        click: function($event) {
+          $event.preventDefault()
+          return _vm.onClick($event)
+        }
+      }
+    },
+    [_vm._t("default")],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5d86bf47", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

@@ -40,6 +40,7 @@ Vue.component('avatar-form', require('./components/AvatarForm.vue'));
 Vue.component('thread-view', require('./pages/Thread.vue'));
 Vue.component('wysiwyg', require('./components/Wysiwyg.vue'));
 Vue.component('channel-dropdown', require('./components/ChannelDropdown.vue'));
+Vue.component('logout-button', require('./components/LogoutButton'));
 
 const app = new Vue({
     el: '#app'
