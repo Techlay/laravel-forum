@@ -36,7 +36,7 @@
                     <a class="nav-link" href="/threads/search">Search</a>
                 </li>
 
-                <channel-dropdown :channels="{{ $channels }}"></channel-dropdown>
+                <channel-dropdown></channel-dropdown>
 
                 </li>
             </ul>

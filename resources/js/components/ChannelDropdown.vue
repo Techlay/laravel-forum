@@ -33,7 +33,7 @@
     }
 
     .input-wrapper {
-        padding: .5rem 1rem;
+        padding: 0.5rem 1rem;
     }
 
     .channel-list {
@@ -51,16 +51,24 @@
 
 <script>
     export default {
-        props: ['channels'],
         data() {
             return {
+                channels: [],
+                toggle: false,
                 filter: ''
             }
         },
+
+        created() {
+            axios.get('/api/channels').then(({ data }) => (this.channels = data));
+        },
+
         computed: {
             filteredChannels() {
                 return this.channels.filter(channel => {
-                    return channel.name.toLowerCase().startsWith(this.filter.toLocaleLowerCase())
+                    return channel.name
+                        .toLowerCase()
+                        .startsWith(this.filter.toLocaleLowerCase())
                 })
             }
         }

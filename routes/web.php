@@ -51,6 +51,7 @@ Route::delete('/profiles/{user}/notifications/{notification}', 'UserNotification
 
 Route::get('api/users', 'Api\UserController@index')->name('api.users');
 Route::post('api/users/{user}/avatar', 'Api\UserAvatarController@store')->middleware('auth')->name('avatar');
+Route::get('api/channels', 'Api\ChannelController@index');
 
 Route::group([
     'prefix' => 'admin',

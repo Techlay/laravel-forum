@@ -4610,21 +4610,6 @@ module.exports = isArray;
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var freeGlobal = __webpack_require__(104);
-
-/** Detect free variable `self`. */
-var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
-
-/** Used as a reference to the global object. */
-var root = freeGlobal || freeSelf || Function('return this')();
-
-module.exports = root;
-
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -4730,6 +4715,21 @@ module.exports = function normalizeComponent (
     options: options
   }
 }
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var freeGlobal = __webpack_require__(104);
+
+/** Detect free variable `self`. */
+var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+/** Used as a reference to the global object. */
+var root = freeGlobal || freeSelf || Function('return this')();
+
+module.exports = root;
 
 
 /***/ }),
@@ -5471,7 +5471,7 @@ module.exports = function clone(obj) {
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var root = __webpack_require__(2);
+var root = __webpack_require__(3);
 
 /** Built-in value references. */
 var Symbol = root.Symbol;
@@ -6116,7 +6116,7 @@ module.exports = isArguments;
 /* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(2),
+/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(3),
     stubFalse = __webpack_require__(346);
 
 /** Detect free variable `exports`. */
@@ -19988,7 +19988,7 @@ module.exports = MapCache;
 /***/ (function(module, exports, __webpack_require__) {
 
 var getNative = __webpack_require__(14),
-    root = __webpack_require__(2);
+    root = __webpack_require__(3);
 
 /* Built-in method references that are verified to be native. */
 var Map = getNative(root, 'Map');
@@ -24667,7 +24667,7 @@ module.exports = equalArrays;
 /* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var root = __webpack_require__(2);
+var root = __webpack_require__(3);
 
 /** Built-in value references. */
 var Uint8Array = root.Uint8Array;
@@ -24757,7 +24757,7 @@ module.exports = stubArray;
 /***/ (function(module, exports, __webpack_require__) {
 
 var getNative = __webpack_require__(14),
-    root = __webpack_require__(2);
+    root = __webpack_require__(3);
 
 /* Built-in method references that are verified to be native. */
 var WeakMap = getNative(root, 'WeakMap');
@@ -24986,7 +24986,7 @@ module.exports = omit;
 /* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(2);
+/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(3);
 
 /** Detect free variable `exports`. */
 var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
@@ -26376,7 +26376,7 @@ var composeArgs = __webpack_require__(152),
     getHolder = __webpack_require__(44),
     reorder = __webpack_require__(474),
     replaceHolders = __webpack_require__(26),
-    root = __webpack_require__(2);
+    root = __webpack_require__(3);
 
 /** Used to compose bitmasks for function metadata. */
 var WRAP_BIND_FLAG = 1,
@@ -27958,7 +27958,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(525)
 }
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(527)
 /* template */
@@ -39850,7 +39850,7 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(292);
-module.exports = __webpack_require__(745);
+module.exports = __webpack_require__(748);
 
 
 /***/ }),
@@ -39906,7 +39906,7 @@ Vue.component('avatar-form', __webpack_require__(510));
 Vue.component('thread-view', __webpack_require__(516));
 Vue.component('wysiwyg', __webpack_require__(732));
 Vue.component('channel-dropdown', __webpack_require__(740));
-Vue.component('logout-button', __webpack_require__(747));
+Vue.component('logout-button', __webpack_require__(745));
 
 var app = new Vue({
     el: '#app'
@@ -81258,7 +81258,7 @@ module.exports = isMasked;
 /* 356 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var root = __webpack_require__(2);
+var root = __webpack_require__(3);
 
 /** Used to detect overreaching core-js shims. */
 var coreJsData = root['__core-js_shared__'];
@@ -82569,7 +82569,7 @@ module.exports = equalObjects;
 /***/ (function(module, exports, __webpack_require__) {
 
 var getNative = __webpack_require__(14),
-    root = __webpack_require__(2);
+    root = __webpack_require__(3);
 
 /* Built-in method references that are verified to be native. */
 var DataView = getNative(root, 'DataView');
@@ -82582,7 +82582,7 @@ module.exports = DataView;
 /***/ (function(module, exports, __webpack_require__) {
 
 var getNative = __webpack_require__(14),
-    root = __webpack_require__(2);
+    root = __webpack_require__(3);
 
 /* Built-in method references that are verified to be native. */
 var Promise = getNative(root, 'Promise');
@@ -82595,7 +82595,7 @@ module.exports = Promise;
 /***/ (function(module, exports, __webpack_require__) {
 
 var getNative = __webpack_require__(14),
-    root = __webpack_require__(2);
+    root = __webpack_require__(3);
 
 /* Built-in method references that are verified to be native. */
 var Set = getNative(root, 'Set');
@@ -85162,7 +85162,7 @@ module.exports = partial;
 /***/ (function(module, exports, __webpack_require__) {
 
 var createCtor = __webpack_require__(63),
-    root = __webpack_require__(2);
+    root = __webpack_require__(3);
 
 /** Used to compose bitmasks for function metadata. */
 var WRAP_BIND_FLAG = 1;
@@ -85201,7 +85201,7 @@ var apply = __webpack_require__(72),
     createRecurry = __webpack_require__(154),
     getHolder = __webpack_require__(44),
     replaceHolders = __webpack_require__(26),
-    root = __webpack_require__(2);
+    root = __webpack_require__(3);
 
 /**
  * Creates a function that wraps `func` to enable currying.
@@ -85701,7 +85701,7 @@ module.exports = reorder;
 
 var apply = __webpack_require__(72),
     createCtor = __webpack_require__(63),
-    root = __webpack_require__(2);
+    root = __webpack_require__(3);
 
 /** Used to compose bitmasks for function metadata. */
 var WRAP_BIND_FLAG = 1;
@@ -87514,7 +87514,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(499)
 }
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(502)
 /* template */
@@ -87714,7 +87714,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(505)
 /* template */
@@ -87924,7 +87924,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(508)
 /* template */
@@ -88072,7 +88072,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(511)
 /* template */
@@ -88192,7 +88192,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(513)
 /* template */
@@ -88343,7 +88343,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(517)
 /* template */
@@ -88470,7 +88470,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(519)
 /* template */
@@ -88586,7 +88586,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(521)
 /* template */
@@ -88755,7 +88755,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(523)
 /* template */
@@ -112944,7 +112944,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(723)
 /* template */
@@ -114867,7 +114867,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(730)
 /* template */
@@ -114978,7 +114978,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(733)
 }
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(736)
 /* template */
@@ -115200,7 +115200,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(741)
 }
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(743)
 /* template */
@@ -115277,7 +115277,7 @@ exports = module.exports = __webpack_require__(27)(false);
 
 
 // module
-exports.push([module.i, "\n.channel-dropdown {\n  padding: 0;\n}\n.input-wrapper {\n  padding: .5rem 1rem;\n}\n.channel-list {\n  max-height: 400px;\n  overflow: auto;\n  margin-bottom: 0;\n}\n.channel-list .list-group-item {\n    border-radius: 0;\n    border-left: none;\n    border-right: none;\n}\n", ""]);
+exports.push([module.i, "\n.channel-dropdown {\n  padding: 0;\n}\n.input-wrapper {\n  padding: 0.5rem 1rem;\n}\n.channel-list {\n  max-height: 400px;\n  overflow: auto;\n  margin-bottom: 0;\n}\n.channel-list .list-group-item {\n    border-radius: 0;\n    border-left: none;\n    border-right: none;\n}\n", ""]);
 
 // exports
 
@@ -115341,19 +115341,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['channels'],
     data: function data() {
         return {
+            channels: [],
+            toggle: false,
             filter: ''
         };
     },
+    created: function created() {
+        var _this = this;
+
+        axios.get('/api/channels').then(function (_ref) {
+            var data = _ref.data;
+            return _this.channels = data;
+        });
+    },
+
 
     computed: {
         filteredChannels: function filteredChannels() {
-            var _this = this;
+            var _this2 = this;
 
             return this.channels.filter(function (channel) {
-                return channel.name.toLowerCase().startsWith(_this.filter.toLocaleLowerCase());
+                return channel.name.toLowerCase().startsWith(_this2.filter.toLocaleLowerCase());
             });
         }
     }
@@ -115447,21 +115457,14 @@ if (false) {
 
 /***/ }),
 /* 745 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 746 */,
-/* 747 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(748)
+var __vue_script__ = __webpack_require__(746)
 /* template */
-var __vue_template__ = __webpack_require__(749)
+var __vue_template__ = __webpack_require__(747)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -115500,7 +115503,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 748 */
+/* 746 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -115521,7 +115524,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        onClick: function onClick() {
+        logout: function logout() {
             axios.post(this.route).then(function (response) {
                 window.location.href = response.request.responseURL;
             });
@@ -115530,7 +115533,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 749 */
+/* 747 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -115545,7 +115548,7 @@ var render = function() {
       on: {
         click: function($event) {
           $event.preventDefault()
-          return _vm.onClick($event)
+          return _vm.logout($event)
         }
       }
     },
@@ -115562,6 +115565,12 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-5d86bf47", module.exports)
   }
 }
+
+/***/ }),
+/* 748 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
