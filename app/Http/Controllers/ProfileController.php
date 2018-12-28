@@ -9,9 +9,15 @@ class ProfileController extends Controller
 {
     public function show(User $user)
     {
-        return view('profiles.show', [
+        $data = [
             'profileUser' => $user,
             'activities' => Activity::feed($user)
-        ]);
+        ];
+
+        if (request()->expectsJson()) {
+            return $data;
+        }
+
+        return view('profiles.show', $data);
     }
 }
