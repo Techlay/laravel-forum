@@ -1,5 +1,5 @@
 <template>
-    <a class="dropdown-item" :href="route" @click.prevent="onClick">
+    <a class="dropdown-item" :href="route" @click.prevent="logout">
         <slot/>
     </a>
 </template>
@@ -14,7 +14,7 @@
         },
 
         methods: {
-            onClick() {
+            logout() {
                 axios.post(this.route).then(response => {
                     window.location.href = response.request.responseURL
                 });
