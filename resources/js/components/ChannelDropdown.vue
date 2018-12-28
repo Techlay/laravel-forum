@@ -6,7 +6,8 @@
            data-toggle="dropdown"
            class="nav-link dropdown-toggle"
            aria-haspopup="true"
-           aria-expanded="false">
+           aria-expanded="false"
+        >
             Channels <span class="caret"></span>
         </a>
 
@@ -59,7 +60,7 @@
         },
 
         created() {
-            axios.get('/api/channels').then(({ data }) => (this.channels = data));
+            axios.get('/api/channels').then(({data}) => (this.channels = data));
         },
 
         computed: {
