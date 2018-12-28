@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Channel;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rule;
 
 class ChannelController extends Controller
 {
@@ -44,7 +45,7 @@ class ChannelController extends Controller
     {
         $channel->update(
             request()->validate([
-                'name' => 'required|unique:channels',
+                'name' => ['required', Rule::unique('channels')->ignore($channel->id)],
                 'description' => 'required'
             ])
         );
