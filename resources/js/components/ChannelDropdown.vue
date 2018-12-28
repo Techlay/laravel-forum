@@ -1,5 +1,5 @@
 <template>
-    <li class="nav-item dropdown" :class="{'open': toggle}">
+    <li class="nav-item dropdown">
         <a id="navbarDropdown"
            href="#"
            role="button"
@@ -54,7 +54,6 @@
         data() {
             return {
                 channels: [],
-                toggle: false,
                 filter: ''
             }
         },

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Channel;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ChannelController extends Controller
@@ -15,7 +14,7 @@ class ChannelController extends Controller
      */
     public function index()
     {
-        $channels = Channel::with('threads')->get();
+        $channels = Channel::orderBy('name', 'asc')->with('threads')->get();
 
         return view('admin.channels.index', compact('channels'));
     }
