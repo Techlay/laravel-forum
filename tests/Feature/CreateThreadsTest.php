@@ -2,8 +2,9 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
+use App\Activity;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class CreateThreadsTest extends TestCase
 {
@@ -113,7 +114,18 @@ class CreateThreadsTest extends TestCase
 
         $this->assertDatabaseMissing('threads', ['id' => $thread->id]);
         $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
-        $this->assertEquals(0, \App\Activity::count());
+        $this->assertEquals(0, Activity::count());
+    }
+
+    /** @test */
+    public function a_new_thread_cannot_be_created_in_an_archived_channel()
+    {
+        $channel = factory('App\Channel')->create(['archived' => true]);
+
+        $this->publishThread(['channel_id' => $channel->id])
+            ->assertSessionHasErrors('channel_id');
+
+        $this->assertCount(0, $channel->threads);
     }
 
     public function publishThread($overrides = [])
