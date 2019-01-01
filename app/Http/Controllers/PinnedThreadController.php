@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Thread;
 
-class pinnedThreadController extends Controller
+class PinnedThreadController extends Controller
 {
     /**
      * Pin the given thread.
