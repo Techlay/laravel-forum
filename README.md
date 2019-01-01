@@ -2,7 +2,7 @@
 
 This is a demo app to showcase how a basic forum powered by Laravel framework can be built. I've used Vue.js as the frontend framework but the code should be easily portable to any other frontend frameworks.
 
-This demo app is currently hosted on Digitalocean using LEMP stack: [forum.lytechlay.com](http://forum.lytechlay.com)
+This demo app is currently hosted on AWS EC2 using LEMP stack: [forum.lytechlay.com](http://forum.lytechlay.com)
 
 ## Basic Installation Instructions
 
