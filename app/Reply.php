@@ -18,12 +18,14 @@ class Reply extends Model
 
     /**
      * The relations to eager load on every query.
+     *
      * @var array
      */
     protected $with = ['owner', 'favorites'];
 
     /**
      * The accessors to append to the model's array form.
+     *
      * @var array
      */
     protected $appends = ['isFavorited', 'isBest'];
@@ -76,18 +78,6 @@ class Reply extends Model
     public function wasJustPublished()
     {
         return $this->created_at->gt(Carbon::now()->subMinute());
-    }
-
-    /**
-     * Fetch all mentioned users within the reply's body.
-     *
-     * @return array
-     */
-    public function mentionedUsers()
-    {
-        preg_match_all('/@([\w\-]+)/', $this->body, $matches);
-
-        return $matches[1];
     }
 
     /**
