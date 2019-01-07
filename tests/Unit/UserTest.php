@@ -2,9 +2,8 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class UserTest extends TestCase
 {
@@ -25,7 +24,7 @@ class UserTest extends TestCase
     {
         $user = create('App\User');
 
-        $this->assertEquals(asset('images/avatars/default.png'), $user->avatar_path);
+        $this->assertEquals(asset('images/avatars/default.svg'), $user->avatar_path);
 
         $user->avatar_path = 'avatars/me.jpg';
 

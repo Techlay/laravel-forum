@@ -4,7 +4,7 @@
             <div class="level">
                 <div class="flex">
                     <a href="{{ route('profile', $reply->owner) }}">
-                        {{ $reply->owner->name }}
+                        {{ $reply->owner->username }}
                     </a> said {{ $reply->created_at->diffForHumans() }}...
                 </div>
 

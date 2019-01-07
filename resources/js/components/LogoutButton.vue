@@ -1,5 +1,5 @@
 <template>
-    <a class="dropdown-item" :href="route" @click.prevent="logout">
+    <a :href="route" @click.prevent="logout">
         <slot/>
     </a>
 </template>
@@ -8,7 +8,6 @@
     export default {
         props: {
             route: {
-                type: String,
                 default: "/logout"
             }
         },

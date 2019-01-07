@@ -10,61 +10,50 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <script>
         window.App = {!! json_encode([
+            'csrfToken' => csrf_token(),
             'signedIn' => Auth::check(),
             'user' => Auth::user()
         ]) !!};
     </script>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Dosis:400,500,600,700" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
 
-    <style>
-        body {
-            padding-bottom: 100px;
-        }
-
-        .level {
-            display: flex;
-            align-items: center;
-        }
-
-        .flex {
-            flex: 1;
-        }
-
-        [v-cloak] {
-            display: none;
-        }
-
-        .ais-highlight > em { background: yellow; font-style: normal; }
-    </style>
-
-    @yield('header')
-
+    @yield('head')
 </head>
 
-<body style="padding-bottom: 100px;">
-    <div id="app">
+<body class="font-sans bg-green-lighter">
+<div id="app">
     @include('layouts.nav')
 
-        <main class="py-4">
-            @yield('content')
+    <div class="container mx-auto">
+        <div class="flex">
+            @section('sidebar')
+                @include('sidebar')
+            @show
 
-            <flash message="{{ session('flash') }}"></flash>
+            <div class="px-10 bg-white flex-1">
+                @yield('content')
+            </div>
 
-        </main>
-
+            @Include('channels-sidebar')
+        </div>
     </div>
-</body>
 
+    <flash message="{{ session('flash') }}"></flash>
+
+    <div v-cloak>
+        @include('modals.all')
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="{{ asset('js/app.js') }}" defer></script>
+@yield('scripts')
+</body>
 </html>

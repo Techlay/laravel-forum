@@ -7,6 +7,12 @@ use App\User;
 
 class ProfileController extends Controller
 {
+    /**
+     * Show the user's profile.
+     *
+     * @param User $user
+     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show(User $user)
     {
         $data = [

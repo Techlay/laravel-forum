@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Storage;
 
 class UserAvatarController extends Controller
 {
+    /**
+     * Store a new user avatar.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function store()
     {
         request()->validate([

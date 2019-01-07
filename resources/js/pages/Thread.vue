@@ -1,12 +1,12 @@
 <script>
-    import Replies from '../components/Replies';
-    import SubscribeButton from '../components/SubscribeButton';
-    import Highlight from '../components/Highlight';
+    import Replies from "../components/Replies";
+    import SubscribeButton from "../components/SubscribeButton";
+    import Highlight from "../components/Highlight";
 
     export default {
-        props: ['thread'],
+        props: ["thread"],
 
-        components: {Replies, SubscribeButton, Highlight},
+        components: { Replies, SubscribeButton, Highlight },
 
         data() {
             return {
@@ -16,19 +16,31 @@
                 title: this.thread.title,
                 body: this.thread.body,
                 form: {},
-                editing: false
-            }
+                editing: false,
+                feedback: "",
+                errors: false
+            };
         },
 
         created() {
             this.resetForm();
         },
 
+        watch: {
+            editing(enabled) {
+                if (enabled) {
+                    this.$modal.show("update-thread");
+                } else {
+                    this.$modal.hide("update-thread");
+                }
+            }
+        },
+
         methods: {
             toggleLock() {
                 let uri = `/locked-threads/${this.thread.slug}`;
 
-                axios[this.locked ? 'delete' : 'post'](uri);
+                axios[this.locked ? "delete" : "post"](uri);
 
                 this.locked = !this.locked;
             },
@@ -36,7 +48,7 @@
             togglePin() {
                 let uri = `/pinned-threads/${this.thread.slug}`;
 
-                axios[this.pinned ? 'delete' : 'post'](uri);
+                axios[this.pinned ? "delete" : "post"](uri);
 
                 this.pinned = !this.pinned;
             },
@@ -49,7 +61,10 @@
                     this.title = this.form.title;
                     this.body = this.form.body;
 
-                    flash('Your thread has been updated.');
+                    flash("Your thread has been updated.");
+                }).catch(error => {
+                    this.feedback = "Whoops, validation failed.";
+                    this.errors = error.response.data.errors;
                 })
             },
 
@@ -60,14 +75,9 @@
                 };
 
                 this.editing = false;
-            },
 
-            classes(target) {
-                return [
-                    'btn',
-                    target ? 'btn-primary' : 'btn-outline-primary'
-                ]
+                this.$modal.hide("update-thread");
             }
         }
-    }
+    };
 </script>

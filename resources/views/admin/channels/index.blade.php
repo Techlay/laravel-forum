@@ -1,27 +1,29 @@
 @extends('admin.layout.app')
 
 @section('administration-content')
-    <p><a class="btn btn-sm btn-primary" href="{{ route('admin.channels.create') }}">New Channel</a></p>
+    <p class="mb-8">
+        <a class="btn bg-blue" href="{{ route('admin.channels.create') }}">New Channel</a>
+    </p>
 
-    <table class="table">
-        <thread>
+    <table style="border-collapse: collapse">
+        <thead class="bg-grey-lightest text-grey-darkest uppercase tracking-wide text-xs">
             <tr>
-                <th>Name</th>
-                <th>Slug</th>
-                <th>Description</th>
-                <th>Threads</th>
-                <th>Actions</th>
+                <th class="p-4 border-b">Name</th>
+                <th class="p-4 border-b">Slug</th>
+                <th class="p-4 border-b">Description</th>
+                <th class="p-4 border-b">Threads</th>
+                <th class="p-4 border-b">Actions</th>
             </tr>
-        </thread>
+        </thead>
         <tbody>
         @forelse($channels as $channel)
-            <tr class="{{ $channel->archived ? 'table-danger' : '' }}">
-                <td>{{ $channel->name }}</td>
-                <td>{{ $channel->slug }}</td>
-                <td>{{ $channel->description }}</td>
-                <td>{{ $channel->threads_count }}</td>
-                <td>
-                    <a href="{{ route('admin.channels.edit', ['channel' => $channel->slug]) }}" class="btn btn-sm btn-outline-dark">Edit</a>
+            <tr class="border-b {{ $channel->archived ? 'bg-red-lighter' : '' }}">
+                <td class="text-sm p-4 border-b">{{ $channel->name }}</td>
+                <td class="text-sm p-4 border-b">{{ $channel->slug }}</td>
+                <td class="text-sm p-4 border-b">{{ $channel->description }}</td>
+                <td class="text-sm p-4 border-b">{{ $channel->threads_count }}</td>
+                <td class="text-sm p-4 border-b">
+                    <a href="{{ route('admin.channels.edit', ['channel' => $channel->slug]) }}" class="text-blue link text-sm">Edit</a>
                 </td>
             </tr>
         @empty

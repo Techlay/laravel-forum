@@ -24,10 +24,9 @@ class ThreadController extends Controller
      *
      * @param \App\Channel $channel
      * @param \App\Filters\ThreadFilters $filters
-     * @param \App\Trending $trending
      * @return \Illuminate\Http\Response
      */
-    public function index(Channel $channel, ThreadFilters $filters, Trending $trending)
+    public function index(Channel $channel, ThreadFilters $filters)
     {
         $threads = $this->getThreads($channel, $filters);
 
@@ -37,7 +36,7 @@ class ThreadController extends Controller
 
         return view('threads.index', [
             'threads' => $threads,
-            'trending' => $trending->get()
+            'channel' => $channel
         ]);
     }
 
@@ -89,12 +88,12 @@ class ThreadController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param $channelId
+     * @param $channel
      * @param \App\Thread $thread
      * @param \App\Trending $trending
      * @return \Illuminate\Http\Response
      */
-    public function show($channelId, Thread $thread, Trending $trending)
+    public function show($channel, Thread $thread, Trending $trending)
     {
         if (auth()->check()) {
             auth()->user()->read($thread);
@@ -107,6 +106,14 @@ class ThreadController extends Controller
         return view('threads.show', compact('thread'));
     }
 
+    /**
+     * Update the given thread.
+     *
+     * @param $channel
+     * @param Thread $thread
+     * @return Thread
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function update($channel, Thread $thread)
     {
         $this->authorize('update', $thread);
@@ -120,7 +127,7 @@ class ThreadController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete the given thread.
      *
      * @param $channel
      * @param  \App\Thread $thread
@@ -141,6 +148,8 @@ class ThreadController extends Controller
     }
 
     /**
+     * Fetch all relevant threads.
+     *
      * @param Channel $channel
      * @param ThreadFilters $filters
      * @return mixed

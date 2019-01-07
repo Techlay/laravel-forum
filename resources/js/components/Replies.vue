@@ -1,32 +1,34 @@
 <template>
-    <div>
-        <div v-for="(reply, index) in items" :key="reply.id">
-            <reply :reply="reply" @deleted="remove(index)"></reply>
-            <br>
+    <div class="flex" style="margin-left: 56px">
+        <div>
+            <div v-for="(reply, index) in items" :key="reply.id">
+                <reply :reply="reply" @deleted="remove(index)"></reply>
+                <br>
+            </div>
+
+            <paginator :dataSet="dataSet" @changed="fetch"></paginator>
+
+            <p v-if="$parent.locked" class="mt-4 text-sm text-grey-dark text-center">
+                This thread has been locked. No more replies are allowed.
+            </p>
+
+            <new-reply @created="add" v-else></new-reply>
         </div>
-
-        <paginator :dataSet="dataSet" @changed="fetch"></paginator>
-
-        <p v-if="$parent.locked">
-            This thread has been locked. No more replies are allowed.
-        </p>
-
-        <new-reply @created="add" v-else></new-reply>
     </div>
 </template>
 
 <script>
-    import Reply from './Reply';
-    import NewReply from './NewReply';
-    import collection from '../mixins/Collection';
+    import Reply from "./Reply";
+    import NewReply from "./NewReply";
+    import collection from "../mixins/Collection";
 
     export default {
-        components: {Reply, NewReply},
+        components: { Reply, NewReply },
 
         mixins: [collection],
 
         data() {
-            return {dataSet: false}
+            return { dataSet: false }
         },
 
         created() {
@@ -47,7 +49,7 @@
                 return `${location.pathname}/replies?page=${page}`;
             },
 
-            refresh({data}) {
+            refresh({ data }) {
                 this.dataSet = data;
                 this.items = data.data;
 

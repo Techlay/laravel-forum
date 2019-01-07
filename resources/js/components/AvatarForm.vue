@@ -4,13 +4,13 @@
             <img :src="avatar" width="50" height="50" class="mr-1">
 
             <h1>
-                {{ user.name }}
+                {{ user.username }}
                 <small v-text="reputation"></small>
             </h1>
         </div>
 
         <form v-if="canUpdate" method="POST" enctype="multipart/form-data">
-            <image-upload name="avatar" @loaded="onLoad"></image-upload>
+            <image-upload name="avatar" class="mr-1" @loaded="onLoad"></image-upload>
         </form>
 
         <hr>
@@ -18,17 +18,17 @@
 </template>
 
 <script>
-    import ImageUpload from './ImageUpload'
+    import ImageUpload from "./ImageUpload"
 
     export default {
-        props: ['user'],
+        props: ["user"],
 
-        components: {ImageUpload},
+        components: { ImageUpload },
 
         data() {
             return {
                 avatar: this.user.avatar_path
-            }
+            };
         },
 
         computed: {
@@ -37,7 +37,7 @@
             },
 
             reputation() {
-                return this.user.reputation + 'XP';
+                return this.user.reputation + "XP";
             }
         },
 
@@ -51,10 +51,10 @@
             persist(avatar) {
                 let data = new FormData();
 
-                data.append('avatar', avatar);
+                data.append("avatar", avatar);
 
-                axios.post(`/api/users/${this.user.name}/avatar`, data)
-                    .then(() => flash('Avatar uploaded!'));
+                axios.post(`/api/users/${this.user.username}/avatar`, data)
+                    .then(() => flash("Avatar uploaded!"));
             }
         }
     }

@@ -9,16 +9,34 @@ use App\Thread;
 
 class ReplyController extends Controller
 {
+    /**
+     * Create a new ReplyController instance.
+     */
     public function __construct()
     {
         $this->middleware('auth', ['except' => 'index']);
     }
 
+    /**
+     * Fetch all relevant replies.
+     *
+     * @param $channelId
+     * @param Thread $thread
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function index($channelId, Thread $thread)
     {
         return $thread->replies()->paginate(20);
     }
 
+    /**
+     * Persist a new reply.
+     *
+     * @param $channelId
+     * @param Thread $thread
+     * @param CreatePostRequest $form
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Database\Eloquent\Model|\Illuminate\Http\Response
+     */
     public function store($channelId, Thread $thread, CreatePostRequest $form)
     {
         if ($thread->locked) {
@@ -31,6 +49,13 @@ class ReplyController extends Controller
         ])->load('owner');
     }
 
+    /**
+     * Update an existing reply.
+     *
+     * @param Reply $reply
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function update(Reply $reply)
     {
         $this->authorize('update', $reply);
@@ -40,6 +65,13 @@ class ReplyController extends Controller
         $reply->update(request(['body']));
     }
 
+    /**
+     * Delete the given reply.
+     *
+     * @param Reply $reply
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function destroy(Reply $reply)
     {
         $this->authorize('update', $reply);

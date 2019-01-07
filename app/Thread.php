@@ -3,7 +3,9 @@
 namespace App;
 
 use App\Events\ThreadReceivedNewReply;
+use App\Events\ThreadWasPublished;
 use App\Filters\ThreadFilters;
+use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
@@ -45,15 +47,15 @@ class Thread extends Model
         static::deleting(function ($thread) {
             $thread->replies->each->delete();
 
-            Reputation::lose($thread->creator, Reputation::THREAD_WAS_PUBLISHED);
+            $thread->creator->loseReputation('thread_published');
         });
 
         static::created(function ($thread) {
             $thread->update(['slug' => $thread->title]);
 
-            Mentions::notifyMentionedUsers($thread);
+            event(new ThreadWasPublished($thread));
 
-            Reputation::gain($thread->creator, Reputation::THREAD_WAS_PUBLISHED);
+            $thread->creator->gainReputation('thread_published');
         });
     }
 
@@ -87,6 +89,14 @@ class Thread extends Model
     public function creator()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * Get the title ofr the thread.
+     */
+    public function title()
+    {
+        return $this->title;
     }
 
     /**
@@ -206,10 +216,8 @@ class Thread extends Model
      */
     public function setSlugAttribute($value)
     {
-        $slug = str_slug($value);
-
-        if (static::whereSlug($slug)->exists()) {
-            $slug = "{$slug}-" . $this->id;
+        if (static::whereSlug($slug = str_slug($value))->exists()) {
+            $slug = "{$slug}-{$this->id}";
         }
 
         $this->attributes['slug'] = $slug;
@@ -233,11 +241,12 @@ class Thread extends Model
     public function markBestReply(Reply $reply)
     {
         if ($this->hasBestReply()) {
-            Reputation::lose($this->bestReply->owner, Reputation::BEST_REPLY_AWARED);
+            $this->bestReply->owner->loseReputation('best_reply_awarded');
         }
+
         $this->update(['best_reply_id' => $reply->id]);
 
-        $reply->owner->increment('reputation', 50);
+        $reply->owner->gainReputation('best_reply_awarded');
     }
 
     /**

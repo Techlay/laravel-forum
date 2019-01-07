@@ -40,13 +40,13 @@ class Reply extends Model
         static::created(function ($reply) {
             $reply->thread->increment('replies_count');
 
-            Reputation::gain($reply->owner, Reputation::REPLY_POSTED);
+            $reply->owner->gainReputation('reply_posted');
         });
 
         static::deleted(function ($reply) {
             $reply->thread->decrement('replies_count');
 
-            Reputation::lose($reply->owner, Reputation::REPLY_POSTED);
+            $reply->owner->loseReputation('reply_posted');
         });
     }
 
@@ -68,6 +68,17 @@ class Reply extends Model
     public function thread()
     {
         return $this->belongsTo(Thread::class);
+    }
+
+
+    /**
+     * Get the related title for the reply.
+     *
+     * @return mixed
+     */
+    public function title()
+    {
+        return $this->thread->title;
     }
 
     /**
@@ -93,6 +104,7 @@ class Reply extends Model
 
     /**
      * Access the body attribute.
+     *
      * @param string $body
      * @return string
      */

@@ -17,7 +17,7 @@
                 reader.onload = e => {
                     let src = e.target.result;
 
-                    this.$emit('loaded', {src, file});
+                    this.$emit("loaded", { src, file });
                 };
             }
         }

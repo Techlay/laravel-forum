@@ -1,25 +1,21 @@
 <template>
-    <nav aria-label="Page navigation">
-        <ul class="pagination" v-if="shouldPaginate">
-            <li class="page-item" v-show="prevUrl">
-                <a class="page-link" href="#" aria-label="Previous" @click.prevent="page--">
-                    <span aria-hidden="true">&laquo; Previous</span>
-                    <span class="sr-only">Previous</span>
-                </a>
-            </li>
-            <li class="page-item" v-show="nextUrl">
-                <a class="page-link" href="#" aria-label="Next" @click.prevent="page++">
-                    <span aria-hidden="true">Next &raquo;</span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <ul v-if="shouldPaginate">
+        <li v-show="prevUrl" class="inline">
+            <a href="#" aria-label="Previous" rel="prev" @click.prevent="page--">
+                <span class="text-xs mr-2" aria-hidden="true">&laquo; Previous</span>
+            </a>
+        </li>
+        <li v-show="nextUrl" class="inline">
+            <a href="#" aria-label="Next" rel="next" @click.prevent="page++">
+                <span class="text-xs" aria-hidden="true">Next &raquo;</span>
+            </a>
+        </li>
+    </ul>
 </template>
 
 <script>
     export default {
-        props: ['dataSet'],
+        props: ["dataSet"],
 
         data() {
             return {
@@ -43,17 +39,17 @@
 
         computed: {
             shouldPaginate() {
-                return !!this.prevUrl || !!this.nextUrl;
+                return !! this.prevUrl || !! this.nextUrl;
             }
         },
 
         methods: {
             broadcast() {
-                return this.$emit('changed', this.page);
+                return this.$emit("changed", this.page);
             },
 
             updateUrl() {
-                history.pushState(null, null, '?page=' + this.page);
+                history.pushState(null, null, "?page=" + this.page);
             }
         }
     }

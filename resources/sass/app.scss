@@ -1,13 +1,35 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Dosis:400,700');
+@tailwind preflight;
 
-// Variables
-@import 'variables';
+@import "components/btn";
+@import "components/widget";
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import "sections/search";
+@import "sections/trix";
 
-.navbar-laravel {
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+@tailwind utilities;
+
+a {
+    @apply .text-grey-darkest;
+    text-decoration: none;
+
+    &.link:hover {
+        text-decoration: underline;
+    }
+}
+
+input {
+    @apply .border .border-grey-light;
+}
+
+pre {
+    @apply .whitespace-pre-wrap;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+.ais-highlight > em {
+    font-weight: bold;
+    @apply .text-black;
 }

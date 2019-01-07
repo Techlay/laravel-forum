@@ -1,12 +1,10 @@
 <template>
-    <li class="nav-item dropdown">
-        <a id="navbarDropdown"
-           href="#"
-           role="button"
-           data-toggle="dropdown"
-           class="nav-link dropdown-toggle"
+    <li class="dropdown" :class="{open: toggle}">
+        <a href="#"
+           class="dropdown-toggle"
            aria-haspopup="true"
            aria-expanded="false"
+           @click.prevent="toggle = !toggle"
         >
             Channels <span class="caret"></span>
         </a>
@@ -55,12 +53,13 @@
         data() {
             return {
                 channels: [],
-                filter: ''
-            }
+                toggle: false,
+                filter: ""
+            };
         },
 
         created() {
-            axios.get('/api/channels').then(({data}) => (this.channels = data));
+            axios.get("/api/channels").then(({ data }) => (this.channels = data));
         },
 
         computed: {
@@ -68,9 +67,9 @@
                 return this.channels.filter(channel => {
                     return channel.name
                         .toLowerCase()
-                        .startsWith(this.filter.toLocaleLowerCase())
+                        .startsWith(this.filter.toLocaleLowerCase());
                 })
             }
         }
-    }
+    };
 </script>
