@@ -33,3 +33,11 @@ pre {
     font-weight: bold;
     @apply .text-black;
 }
+
+.pagination {
+    @apply .flex .list-reset .font-bold ..justify-center .mb-6;
+}
+
+.page-item {
+    @apply .text-blue .mr-6;
+}
