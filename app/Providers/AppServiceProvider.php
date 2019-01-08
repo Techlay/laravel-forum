@@ -2,23 +2,22 @@
 
 namespace App\Providers;
 
-use App\Trending;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
      *
-     * @param Trending $trending
      * @return void
      */
-    public function boot(Trending $trending)
+    public function boot()
     {
         Schema::defaultStringLength(191);
 
-        \Validator::extend('spamfree', 'App\Rules\SpamFree@passes');
+        Validator::extend('spamfree', 'App\Rules\SpamFree@passes');
     }
 
     /**
