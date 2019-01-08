@@ -5,7 +5,6 @@ namespace App;
 use App\Events\ThreadReceivedNewReply;
 use App\Events\ThreadWasPublished;
 use App\Filters\ThreadFilters;
-use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
@@ -247,6 +246,14 @@ class Thread extends Model
         $this->update(['best_reply_id' => $reply->id]);
 
         $reply->owner->gainReputation('best_reply_awarded');
+    }
+
+    public function unsetBestReply()
+    {
+        if ($this->hasBestReply()) {
+            $this->bestReply->owner->loseReputation('best_reply_awarded');
+            $this->update(['best_reply_id' => null]);
+        }
     }
 
     /**
