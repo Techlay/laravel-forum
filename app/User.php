@@ -90,7 +90,10 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function isAdmin()
     {
-        return in_array($this->email, config('forum.administrators'));
+        return in_array(
+            strtolower($this->email),
+            array_map('strtolower', config('forum.administrators'))
+        );
     }
 
     /**
