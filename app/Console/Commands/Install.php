@@ -139,6 +139,7 @@ class Install extends Command
      *
      * @param string $question
      * @param bool $fallback
+     * @return mixed
      */
     public function askHiddenWithDefault($question, $fallback = true)
     {
@@ -146,6 +147,6 @@ class Install extends Command
 
         $question->setHidden(true)->setHiddenFallback($fallback);
 
-        $password = $this->output->askQuestion($question);
+        return $this->output->askQuestion($question);
     }
 }
