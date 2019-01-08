@@ -24,6 +24,18 @@ class PinThreadTest extends TestCase
     }
 
     /** @test */
+    public function regular_users_cannot_unpin_threads()
+    {
+        $this->signIn();
+
+        $thread = create('App\Thread', ['user_id' => auth()->id(), 'pinned' => true]);
+
+        $this->delete(route('pinned-threads.destroy', $thread))->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->assertTrue($thread->fresh()->pinned);
+    }
+
+    /** @test */
     public function administrators_can_pin_thread()
     {
         $this->signInAdmin();
