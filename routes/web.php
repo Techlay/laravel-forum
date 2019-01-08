@@ -18,7 +18,6 @@ Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('threads', 'ThreadController@index')->name('threads');
-Route::get('threads/create', 'ThreadController@create')->middleware('verified')->name('threads.create');
 Route::get('threads/search', 'SearchController@show')->name('search.show');
 Route::get('threads/{channel}/{thread}', 'ThreadController@show')->name('threads.show');
 Route::patch('threads/{channel}/{thread}', 'ThreadController@update')->name('threads.update');
