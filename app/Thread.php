@@ -277,6 +277,13 @@ class Thread extends Model
         }
     }
 
+    public function removeBestReply()
+    {
+        $this->bestReply->owner->loseReputation('best_reply_awarded');
+
+        $this->update(['best_reply_id' => null]);
+    }
+
     /**
      * Determine if the thread has a current best reply.
      *
