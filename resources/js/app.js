@@ -19,6 +19,8 @@ Vue.prototype.authorize = function (...params) {
 
 Vue.prototype.signedIn = window.App.signedIn;
 
+Vue.prototype.humanTime = timestamp => moment(timestamp).fromNow();
+
 require("./bootstrap");
 
 import InstantSearch from "vue-instantsearch";

@@ -27,6 +27,13 @@ class Thread extends Model
     protected $with = ['creator', 'channel'];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['path'];
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array
@@ -78,6 +85,20 @@ class Thread extends Model
         return $this->hasMany(Reply::class)
             ->withCount('favorites')
             ->with('owner');
+    }
+
+    /**
+     * Fetch the path to the thread as a property.
+     *
+     * @return string
+     */
+    public function getPathAttribute()
+    {
+        if (!$this->channel) {
+            return '';
+        }
+
+        return $this->path();
     }
 
     /**

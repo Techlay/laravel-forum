@@ -6,8 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Activity extends Model
 {
+    /** Don't auto-reply mass assignment protection.
+     *
+     * @var array
+     */
     protected $guarded = [];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
     protected $appends = ['favoritedModel'];
 
     public function getFavoritedModelAttribute()
@@ -16,6 +25,7 @@ class Activity extends Model
 
         if ($this->subject_type === Favorite::class) {
             $subject = $this->subject()->firstOrFail();
+
             if ($subject->favorited_type === Reply::class) {
                 $favoritedModel = Reply::find($subject->favorited_id);
             }
@@ -24,6 +34,11 @@ class Activity extends Model
         return $favoritedModel;
     }
 
+    /**
+     * Fetch the associated subject  for the activity.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
     public function subject()
     {
         return $this->morphTo();

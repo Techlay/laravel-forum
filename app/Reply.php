@@ -28,7 +28,7 @@ class Reply extends Model
      *
      * @var array
      */
-    protected $appends = ['isFavorited', 'isBest', 'isBest', 'xp'];
+    protected $appends = ['isFavorited', 'isBest', 'isBest', 'xp', 'path'];
 
     /**
      * Boot the reply instance.
@@ -114,6 +114,16 @@ class Reply extends Model
     public function getBodyAttribute($body)
     {
         return \Purify::clean($body);
+    }
+
+    /**
+     * Fetch the path to the thread as a property.
+     *
+     * @return string
+     */
+    public function getPathAttribute()
+    {
+        return $this->path();
     }
 
     /**
