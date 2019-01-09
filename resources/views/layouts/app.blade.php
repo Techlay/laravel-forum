@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full">
 
 <head>
     <meta charset="utf-8">
@@ -27,12 +27,12 @@
     @yield('head')
 </head>
 
-<body class="font-sans bg-green-lighter">
-<div id="app">
+<body class="font-sans bg-green-lighter h-full">
+<div id="app" class="flex flex-col h-full">
     @include('layouts.nav')
 
-    <div class="container mx-auto">
-        <div class="flex">
+    <div class="container mx-auto flex flex-1">
+        <div class="flex flex-1">
             @section('sidebar')
                 @include('sidebar')
             @show
