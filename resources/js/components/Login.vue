@@ -7,17 +7,25 @@
                 loading: false
             };
         },
-
         methods: {
             login() {
                 this.loading = true;
-
-                axios.post("/login", this.form).then(() => location.reload()).catch(error => {
-                    this.feedback = "The given credential are incorrect. Please try again.";
-                    this.loading = false;
-                });
+                axios
+                    .post("/login", this.form, {
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json"
+                        }
+                    })
+                    .then(({ data: { redirect } }) => {
+                        location.assign(redirect);
+                    })
+                    .catch(error => {
+                        this.feedback =
+                            "The given credentials are incorrect. Please try again.";
+                        this.loading = false;
+                    });
             },
-
             register() {
                 this.$modal.hide("login");
                 this.$modal.show("register");
