@@ -11,7 +11,7 @@
 |
  */
 
-Route::get('/', 'ThreadController@index');
+Route::get('', 'ThreadController@index');
 
 Auth::routes(['verify' => true]);
 
@@ -31,23 +31,23 @@ Route::delete('locked-threads/{thread}', 'LockedThreadController@destroy')->midd
 Route::post('pinned-threads/{thread}', 'PinnedThreadController@store')->middleware('admin')->name('pinned-threads.store');
 Route::delete('pinned-threads/{thread}', 'PinnedThreadController@destroy')->middleware('admin')->name('pinned-threads.destroy');
 
-Route::get('/threads/{channel}/{thread}/replies', 'ReplyController@index')->name('replies');
-Route::post('/threads/{channel}/{thread}/replies', 'ReplyController@store')->middleware('verified')->name('replies.store');
-Route::patch('/replies/{reply}', 'ReplyController@update')->name('replies.update');
-Route::delete('/replies/{reply}', 'ReplyController@destroy')->name('replies.destroy');
+Route::get('threads/{channel}/{thread}/replies', 'ReplyController@index')->name('replies');
+Route::post('threads/{channel}/{thread}/replies', 'ReplyController@store')->middleware('verified')->name('replies.store');
+Route::patch('replies/{reply}', 'ReplyController@update')->name('replies.update');
+Route::delete('replies/{reply}', 'ReplyController@destroy')->name('replies.destroy');
 
-Route::post('/replies/{reply}/best', 'BestReplyController@store')->name('best-replies.store');
+Route::post('replies/{reply}/best', 'BestReplyController@store')->name('best-replies.store');
 
-Route::post('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionController@store')->middleware('auth');
-Route::delete('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionController@destroy')->middleware('auth');
+Route::post('threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionController@store')->middleware('auth');
+Route::delete('threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionController@destroy')->middleware('auth');
 
-Route::post('/replies/{reply}/favorites', 'FavoriteController@store')->name('replies.favorite');
-Route::delete('/replies/{reply}/favorites', 'FavoriteController@destroy')->name('replies.unfavorite');
+Route::post('replies/{reply}/favorites', 'FavoriteController@store')->name('replies.favorite');
+Route::delete('replies/{reply}/favorites', 'FavoriteController@destroy')->name('replies.unfavorite');
 
-Route::get('/profiles/{user}', 'ProfileController@show')->name('profile');
-Route::get('/profiles/{user}/activity', 'ProfilesController@index')->name('activity');
-Route::get('/profiles/{user}/notifications', 'UserNotificationController@index')->name('user-notifications');
-Route::delete('/profiles/{user}/notifications/{notification}', 'UserNotificationController@destroy')->name('user-notification.destroy');
+Route::get('profiles/{user}', 'ProfileController@show')->name('profile');
+Route::get('profiles/{user}/activity', 'ProfilesController@index')->name('activity');
+Route::get('profiles/{user}/notifications', 'UserNotificationController@index')->name('user-notifications');
+Route::delete('profiles/{user}/notifications/{notification}', 'UserNotificationController@destroy')->name('user-notification.destroy');
 
 Route::get('api/users', 'Api\UserController@index')->name('api.users');
 Route::post('api/users/{user}/avatar', 'Api\UserAvatarController@store')->middleware('auth')->name('avatar');
@@ -58,10 +58,10 @@ Route::group([
     'middleware' => 'admin',
     'namespace' => 'Admin'
 ], function () {
-    Route::get('/', 'DashboardController@index')->name('admin.dashboard.index');
-    Route::post('/channels', 'ChannelController@store')->name('admin.channels.store');
-    Route::get('/channels', 'ChannelController@index')->name('admin.channels.index');
-    Route::get('/channels/create', 'ChannelController@create')->name('admin.channels.create');
-    Route::get('/channels/{channel}/edit', 'ChannelController@edit')->name('admin.channels.edit');
-    Route::patch('/channels/{channel}', 'ChannelController@update')->name('admin.channels.update');
+    Route::get('', 'DashboardController@index')->name('admin.dashboard.index');
+    Route::post('channels', 'ChannelController@store')->name('admin.channels.store');
+    Route::get('channels', 'ChannelController@index')->name('admin.channels.index');
+    Route::get('channels/create', 'ChannelController@create')->name('admin.channels.create');
+    Route::get('channels/{channel}/edit', 'ChannelController@edit')->name('admin.channels.edit');
+    Route::patch('channels/{channel}', 'ChannelController@update')->name('admin.channels.update');
 });
