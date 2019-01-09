@@ -28,7 +28,7 @@ class Reply extends Model
      *
      * @var array
      */
-    protected $appends = ['isFavorited', 'isBest'];
+    protected $appends = ['isFavorited', 'isBest', 'isBest', 'xp'];
 
     /**
      * Boot the reply instance.
@@ -73,7 +73,6 @@ class Reply extends Model
     {
         return $this->belongsTo(Thread::class);
     }
-
 
     /**
      * Get the related title for the reply.
@@ -149,5 +148,16 @@ class Reply extends Model
     public function getIsBestAttribute()
     {
         return $this->isBest();
+    }
+
+    public function getXPAttribute()
+    {
+        $xp = config('forum.reputation.reply_posted');
+
+        if ($this->isBest()) {
+            $xp += config('forum.reputation.best_reply_awarded');
+        }
+
+        return $xp += $this->favorites()->count() * config('forum.reputation.reply_favorited');
     }
 }

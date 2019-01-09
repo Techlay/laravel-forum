@@ -7,6 +7,18 @@ use App\User;
 
 class ProfileController extends Controller
 {
+    /** Fetch the user's activity feed
+     *
+     * @param User $user
+     * @return array
+     */
+    public function index(User $user)
+    {
+        return [
+            'activities' => Activity::feed($user)
+        ];
+    }
+
     /**
      * Show the user's profile.
      *
@@ -15,10 +27,7 @@ class ProfileController extends Controller
      */
     public function show(User $user)
     {
-        $data = [
-            'profileUser' => $user,
-            'activities' => Activity::feed($user)
-        ];
+        $data = ['profileUser' => $user];
 
         if (request()->expectsJson()) {
             return $data;
