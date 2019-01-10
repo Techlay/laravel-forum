@@ -5,7 +5,7 @@
         <ul class="list-reset">
             @foreach($channels as $channel)
                 <li class="text-xs pb-3 flex">
-                    <span class="rounded-full h-3 w-3 mr-2" style="background: {{ $channel->color }}"></span>
+                    <span class="rounded-full h-3 w-3 mr-2" style="background: {{ $channel->colour }}"></span>
 
                     <a href="{{ route('channels', $channel) }}" class="link">
                         {{ ucwords($channel->name) }}

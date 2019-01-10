@@ -36,7 +36,7 @@
             <div class="flex items-center text-xs mb-6">
                 <a class="btn bg-grey-light text-grey-darkest py-2 px-3 mr-4 text-2xs flex items-center"
                    href="/threads/{{ $thread->channel->slug }}">
-                    <span class="rounded-full h-2 w-2 mr-2" style="background: {{ $thread->channel->color }}"></span>
+                    <span class="rounded-full h-2 w-2 mr-2" style="background: {{ $thread->channel->colour }}"></span>
                     {{ ucwords($thread->channel->name) }}
                 </a>
 

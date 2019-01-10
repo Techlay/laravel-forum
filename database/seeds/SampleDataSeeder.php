@@ -1,10 +1,10 @@
 <?php
 
-use App\Activity;
-use App\Channel;
-use App\Favorite;
 use App\Reply;
 use App\Thread;
+use App\Channel;
+use App\Activity;
+use App\Favorite;
 use App\ThreadSubscription;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
@@ -18,6 +18,8 @@ class SampleDataSeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
+
         $this->channels()->content();
 
         Schema::enableForeignKeyConstraints();
@@ -34,35 +36,37 @@ class SampleDataSeeder extends Seeder
             [
                 'name' => 'PHP',
                 'description' => 'A channel for general PHP questions. Use this channel if you can\'t find a more specific channel for your question.',
-                'color' => '#008000'
+                'colour' => '#008000'
             ],
             [
                 'name' => 'Vue',
                 'description' => 'A channel for general Vue questions. Use this channel if you can\'t find a more specific channel for your question.',
-                'color' => '#cccccc'
+                'colour' => '#cccccc'
             ],
             [
                 'name' => 'Laravel Mix',
                 'description' => 'This channel is for all Laravel Mix related questions.',
-                'color' => '#43DDF5'
+                'colour' => '#43DDF5'
             ],
             [
                 'name' => 'Eloquent',
                 'description' => 'This channel is for all Laravel Eloquent related questions.',
-                'color' => '#a01212'
+                'colour' => '#a01212'
             ],
             [
                 'name' => 'Vuex',
-                'description' => 'This channel is for all Vuex specific questions.',
-                'color' => '#ff8822'
+                'description' => 'This channel is for all Vuex related questions.',
+                'colour' => '#ff8822'
             ],
         ])->each(function ($channel) {
             factory(Channel::class)->create([
                 'name' => $channel['name'],
                 'description' => $channel['description'],
-                'color' => $channel['color']
+                'colour' => $channel['colour']
             ]);
         });
+
+        return $this;
     }
 
     /**
@@ -92,7 +96,7 @@ class SampleDataSeeder extends Seeder
     {
         $type = strtolower((new \ReflectionClass($model))->getShortName());
 
-        $model->morphMany('App\Activity', 'subject')->create([
+        $model->morphMany(\App\Activity::class, 'subject')->create([
             'user_id' => $user_id,
             'type' => "{$event_type}_{$type}"
         ]);

@@ -25,10 +25,10 @@ $factory->state(App\Thread::class, 'from_existing_channels_and_users', function 
 
     return [
         'user_id' => function () {
-            return factory('App\User')->random()->id;
+            return \App\User::all()->random()->id;
         },
         'channel_id' => function () {
-            return factory('App\Channel')->random()->id;
+            return \App\Channel::all()->random()->id;
         },
         'title' => $title,
         'body' => $faker->paragraph,
