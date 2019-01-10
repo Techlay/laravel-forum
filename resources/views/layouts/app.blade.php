@@ -27,7 +27,7 @@
     @yield('head')
 </head>
 
-<body class="font-sans bg-green-lighter h-full">
+<body class="font-sans bg-grey-lighter h-full">
 <div id="app" class="flex flex-col min-h-full">
     @include('layouts.nav')
 
