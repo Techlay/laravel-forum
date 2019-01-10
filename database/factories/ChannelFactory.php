@@ -7,6 +7,6 @@ $factory->define(App\Channel::class, function (Faker $faker) {
         'name' => $faker->unique()->word,
         'description' => $faker->sentence,
         'archived' => false,
-        'color' => $faker->hexColor
+        'colour' => $faker->hexColor
     ];
 });

@@ -41,12 +41,20 @@ class ChannelController extends Controller
         return view('admin.channels.edit', compact('channel'));
     }
 
+    /**
+     * Update an existing channel.
+     *
+     * @param Channel $channel
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+     * @throws \Exception
+     */
     public function update(Channel $channel)
     {
         $channel->update(
             request()->validate([
                 'name' => ['required', Rule::unique('channels')->ignore($channel->id)],
                 'description' => 'required',
+                'colour' => 'required',
                 'archived' => 'required|boolean'
             ])
         );
@@ -61,11 +69,18 @@ class ChannelController extends Controller
             ->with('flash', 'Your channel has been updated!');
     }
 
+    /**
+     * Store a new channel.
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+     * @throws \Exception
+     */
     public function store()
     {
         $channel = Channel::create(
             request()->validate([
                 'name' => 'required|unique:channels',
+                'colour' => 'required',
                 'description' => 'required'
             ])
         );

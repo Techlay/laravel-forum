@@ -11,6 +11,12 @@
 </div>
 
 <div class="mb-4">
+    <label for="colour" class="tracking-wide uppercase text-grey-dark text-xs block pb-2">Colour</label>
+    <input type="text" class="form-control" id="colour" name="colour"
+           value="{{ old('description', $channel->colour) }}" required>
+</div>
+
+<div class="mb-4">
     <label for="archived" class="tracking-wide uppercase text-grey-dark text-xs block pb-2">Status</label>
 
     <select name="archived" id="archived" class="form-control">

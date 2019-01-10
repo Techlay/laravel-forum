@@ -4,10 +4,9 @@ namespace Tests\Feature\Admin;
 
 use App\Channel;
 use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ChannelAdministrationTest extends TestCase
 {
@@ -40,14 +39,35 @@ class ChannelAdministrationTest extends TestCase
     {
         $response = $this->createChannel([
             'name' => 'php',
-            'description' => 'This is the channel for discussing all things PHP.'
+            'description' => 'This is the channel for discussing all things PHP.',
+            'colour' => '#ff0000'
         ]);
 
         $this->get($response->headers->get('Location'))
             ->assertSee('php')
             ->assertSee('This is the channel for discussing all things PHP.');
     }
-    
+
+    /** @test */
+    public function an_administrator_can_edit_an_existing_channel()
+    {
+        $this->signInAdmin();
+
+        $this->patch(
+            route('admin.channels.update', ['channel' => create('App\Channel')->slug]),
+            $updatedChannel = [
+                'name' => 'altered',
+                'description' => 'altered channel description',
+                'colour' => '#00ff00',
+                'archived' => true
+            ]
+        );
+
+        $this->get(route('admin.channels.index'))
+            ->assertSee($updatedChannel['name'])
+            ->assertSee($updatedChannel['description']);
+    }
+
     /** @test */
     public function an_administrator_can_mark_an_existing_channel_as_archived()
     {
@@ -62,11 +82,47 @@ class ChannelAdministrationTest extends TestCase
             [
                 'name' => 'altered',
                 'description' => 'altered channel description',
+                'colour' => '#00ff00',
                 'archived' => true
             ]
         );
 
         $this->assertTrue($channel->fresh()->archived);
+    }
+
+    /** @test */
+    public function an_administrator_can_edit_an_archived_channel()
+    {
+        $this->signInAdmin();
+
+        $channel = create('App\Channel', ['archived' => true]);
+
+        $this->assertTrue($channel->archived);
+
+        $this->get(route('admin.channels.edit', $channel))
+            ->assertStatus(Response::HTTP_OK);
+    }
+
+    /** @test */
+    public function an_administrator_can_activate_an_archived_channel()
+    {
+        $this->signInAdmin();
+
+        $channel = create('App\Channel', ['archived' => true]);
+
+        $this->assertTrue($channel->archived);
+
+        $this->patch(
+            route('admin.channels.update', $channel),
+            [
+                'name' => 'altered',
+                'description' => 'altered channel description',
+                'colour' => '#000000',
+                'archived' => false
+            ]
+        );
+
+        $this->assertFalse($channel->fresh()->archived);
     }
 
     /** @test */
@@ -92,6 +148,13 @@ class ChannelAdministrationTest extends TestCase
     {
         $this->createChannel(['description' => null])
             ->assertSessionHasErrors('description');
+    }
+
+    /** @test */
+    public function a_channel_requires_a_colour()
+    {
+        $this->createChannel(['colour' => null])
+            ->assertSessionHasErrors('colour');
     }
 
     protected function createChannel($overrides = [])
