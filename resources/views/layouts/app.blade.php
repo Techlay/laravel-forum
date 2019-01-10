@@ -28,7 +28,7 @@
 </head>
 
 <body class="font-sans bg-green-lighter h-full">
-<div id="app" class="flex flex-col h-full">
+<div id="app" class="flex flex-col min-h-full">
     @include('layouts.nav')
 
     <div class="container mx-auto flex flex-1">
