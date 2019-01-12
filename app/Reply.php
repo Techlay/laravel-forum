@@ -28,7 +28,7 @@ class Reply extends Model
      *
      * @var array
      */
-    protected $appends = ['isFavorited', 'isBest', 'isBest', 'xp', 'path'];
+    protected $appends = ['favoritesCount', 'isFavorited', 'isBest', 'isBest', 'xp', 'path'];
 
     /**
      * Boot the reply instance.

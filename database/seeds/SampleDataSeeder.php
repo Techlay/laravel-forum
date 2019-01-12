@@ -44,20 +44,61 @@ class SampleDataSeeder extends Seeder
                 'colour' => '#cccccc'
             ],
             [
-                'name' => 'Laravel Mix',
-                'description' => 'This channel is for all Laravel Mix related questions.',
+                'name' => 'JavaScript',
+                'description' => 'This channel is for all JavaScript related questions.',
                 'colour' => '#43DDF5'
             ],
             [
-                'name' => 'Eloquent',
-                'description' => 'This channel is for all Laravel Eloquent related questions.',
+                'name' => 'Node',
+                'description' => 'This channel is for all Node related questions.',
                 'colour' => '#a01212'
             ],
             [
-                'name' => 'Vuex',
-                'description' => 'This channel is for all Vuex related questions.',
+                'name' => 'Ruby',
+                'description' => 'This channel is for all Ruby related questions.',
                 'colour' => '#ff8822'
             ],
+            [
+                'name' => 'Go',
+                'description' => 'This channel is for all Go related questions.',
+                'colour' => '#ea4e28'
+            ],
+            [
+                'name' => 'Laravel',
+                'description' => 'This channel is for all Laravel related questions.',
+                'colour' => '#113a62'
+            ],
+            [
+                'name' => 'Elixir',
+                'description' => 'This channel is for all Elixir related questions.',
+                'colour' => '#4a245d'
+            ],
+            [
+                'name' => 'Webpack',
+                'description' => 'This channel is for all Webpack related questions.',
+                'colour' => '#B3CBE6'
+            ],
+            [
+                'name' => 'Symfony',
+                'description' => 'This channel is for all Symfony related questions.',
+                'colour' => '#091b47'
+            ],
+            [
+                'name' => 'React',
+                'description' => 'This channel is for all React related questions.',
+                'colour' => '#1E38BB'
+            ],
+            [
+                'name' => 'Java',
+                'description' => 'This channel is for all Java related questions.',
+                'colour' => '#01476e'
+            ],
+            [
+                'name' => 'AWS',
+                'description' => 'This channel is for all AWS related questions.',
+                'colour' => '#444444'
+            ],
+
         ])->each(function ($channel) {
             factory(Channel::class)->create([
                 'name' => $channel['name'],
