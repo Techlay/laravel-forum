@@ -1,7 +1,13 @@
 <template>
     <div>
         <input id="trix" type="hidden" :name="name" :value="value">
-        <trix-editor ref="trix" input="trix" @trix-change="change" :placeholder="placeholder"></trix-editor>
+
+        <trix-editor
+            ref="trix"
+            input="trix"
+            @trix-change="change"
+            :placeholder="placeholder">
+        </trix-editor>
     </div>
 </template>
 
@@ -10,23 +16,29 @@
 </style>
 
 <script>
-    import Trix from 'trix';
+    import Trix from "trix";
 
     export default {
-        props: ['name', 'value', 'placeholder'],
+        props: ["name", "value", "placeholder"],
 
         methods: {
-            change({target}) {
-                this.$emit('input', target.value)
+            change({ target }) {
+                this.$emit("input", target.value)
             }
         },
 
         watch: {
             value(val) {
-                if (val === '') {
-                    this.$refs.trix.value = '';
+                if (val === "") {
+                    this.$refs.trix.value = "";
                 }
             }
         }
     }
 </script>
+
+<style scoped>
+    trix-editor {
+        min-height: 100px;
+    }
+</style>
