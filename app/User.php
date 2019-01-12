@@ -44,6 +44,16 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'boolean',
+        'reputation' => 'integer'
+    ];
+
+    /**
      * Get the route key name for Larave.
      *
      * @return string

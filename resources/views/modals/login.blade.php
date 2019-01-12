@@ -5,7 +5,7 @@
                 <label for="email"
                        class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">Email</label>
                 <input type="text" class="w-full p-2 leading-normal" id="email" name="email" autocomplete="email"
-                       placeholder="joe@example.com" value="{{ old('email') }}" required v-model="form.email">
+                       value="{{ old('email') }}" required v-model="form.email">
             </div>
 
             <div class="mb-6">

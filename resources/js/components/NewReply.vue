@@ -8,7 +8,7 @@
             </p>
         </div>
 
-        <div v-else-if="! confirmed">
+        <div v-else-if="emailVerified === null">
             To participate in this thread, please check your email and confirm your account.
         </div>
 
@@ -36,8 +36,8 @@
         },
 
         computed: {
-            confirmed() {
-                return window.App.user.confirmed;
+            emailVerified() {
+                return window.App.user.email_verified_at;
             }
         },
 
