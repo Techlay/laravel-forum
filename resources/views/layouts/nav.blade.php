@@ -3,14 +3,16 @@
         <div>
             <h1 class="font-normal text-2xl">
                 <a href="/" class="text-blue-lightest flex items-center">
-                    @include ('svgs.logo', ['class' => 'mr-2'])
+                    {{-- @include ('svgs.logo', ['class' => 'mr-2']) --}}
                     {{ config('app.name', 'Forum') }}
                 </a>
             </h1>
         </div>
 
         <div class="flex" v-cloak>
-            <div class="search-wrap rounded-full bg-blue-darkest w-10 cursor-pointer h-10 flex items-center justify-center mr-4 relative" @mouseover="search" @mouseout="searching = false">
+            <div
+                class="search-wrap rounded-full bg-blue-darkest w-10 cursor-pointer h-10 flex items-center justify-center mr-4 relative"
+                @mouseover="search" @mouseout="searching = false">
                 <form method="GET" action="/threads/search" v-show="searching">
                     <input type="text"
                            placeholder="Search for something..."

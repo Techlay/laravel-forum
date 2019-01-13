@@ -3,33 +3,8 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-window.Vue = require("vue");
-
-let authorizations = require("./authorizations");
-
-Vue.prototype.authorize = function (...params) {
-    if (!window.App.signedIn) return false;
-
-    if (typeof params[0] === "string") {
-        return authorizations[params[0]](params[1]);
-    }
-
-    return params[0](window.App.user);
-};
-
-Vue.prototype.signedIn = window.App.signedIn;
-
-Vue.prototype.humanTime = timestamp => moment(timestamp).fromNow();
 
 require("./bootstrap");
-
-import InstantSearch from "vue-instantsearch";
-import VModal from "vue-js-modal";
-
-Vue.use(InstantSearch);
-Vue.use(VModal);
-
-Vue.config.ignoredElements = ["trix-editor"];
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -51,6 +26,7 @@ import ChannelDropdown from "./components/ChannelDropdown";
 import LogoutButton from "./components/LogoutButton";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Highlight from "./components/Highlight";
 
 import Thread from "./pages/Thread";
 
@@ -69,6 +45,7 @@ Vue.component("channel-dropdown", ChannelDropdown);
 Vue.component("logout-button", LogoutButton);
 Vue.component("login", Login);
 Vue.component("register", Register);
+Vue.component("highlight", Highlight);
 
 Vue.component("thread-view", Thread);
 
