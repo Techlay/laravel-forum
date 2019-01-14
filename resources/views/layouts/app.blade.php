@@ -31,7 +31,7 @@
 <div id="app" class="flex flex-col min-h-full">
     @include('layouts.nav')
 
-    <div class="container mx-auto flex flex-1">
+    <div class="container mx-auto flex flex-1 w-full">
         <div class="flex flex-1">
             @section('sidebar')
                 @include('sidebar')

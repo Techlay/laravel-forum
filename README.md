@@ -25,4 +25,4 @@ Next, boot up a server and visit your forum. If using a tool like Laravel Valet,
 
 To test application the database is seeding with user:
 
-* Administrator : email = john@example.com, password = administrator
+* Administrator : email = john@example.com, password = password

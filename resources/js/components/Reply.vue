@@ -118,7 +118,7 @@
                         body: this.body
                     })
                     .catch(error => {
-                        flash(error.response, "danger");
+                        flash(error.response.data, "danger");
                     });
 
                 this.editing = false;
@@ -139,7 +139,7 @@
             },
 
             markBestReply() {
-                if (!this.authorize("own", this.reply.thread)) {
+                if (!this.authorize("owns", this.reply.thread)) {
                     return;
                 }
 

@@ -1,5 +1,5 @@
 @if (auth()->check())
-    <modal name="new-thread" width="50%" height="auto" transition="slide">
+    <modal name="new-thread" width="60%" height="auto" transition="slide">
         <form method="POST" action="/threads" class="p-6 py-8">
             {{ csrf_field() }}
 
