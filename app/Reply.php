@@ -166,7 +166,10 @@ class Reply extends Model
         return $this->isBest();
     }
 
-    public function getXPAttribute()
+    /**
+     * Calculate the correct XP amount earned for the current reply.
+     */
+    public function getXpAttribute()
     {
         $xp = config('forum.reputation.reply_posted');
 
