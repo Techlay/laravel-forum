@@ -2,8 +2,7 @@
     <div class="flex {{ $loop->last ? '' : 'mb-6 pb-4' }}">
         <div class="mr-4">
             <img src="{{ $thread->creator->avatar_path }}"
-                 alt="{{ $thread->creator->username }}"
-                 class="w-8 h-8 bg-blue-darker rounded-full p-2">
+                 alt="{{ $thread->creator->username }}">
         </div>
 
         <div class="flex-1 {{ $loop->last ? '' : 'border-b border-blue-lightest' }}">
