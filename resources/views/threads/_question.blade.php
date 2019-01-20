@@ -37,7 +37,8 @@
     <div class="flex">
         <div class="mr-1">
             <img src="{{ $thread->creator->avatar_path }}"
-                 alt="{{ $thread->creator->username }}">
+                 alt="{{ $thread->creator->username }}"
+                 class="w-8 h-8 bg-blue-darker rounded-full p-2">
         </div>
 
         <div class="flex-1 border-b border-grey-lighter pb-8 ml-4">
